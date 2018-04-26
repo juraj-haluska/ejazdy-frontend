@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {CognitoService} from '../../services/cognito.service';
+import {Router} from '@angular/router';
 
 class MenuItem {
   public name: string;
@@ -22,10 +24,16 @@ export class MainComponent implements OnInit {
     new MenuItem('item 2', 'item2')
   ];
 
-  constructor() {
+  constructor(private cognito: CognitoService,
+              private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+  public logout() {
+    this.cognito.logout();
+    this.router.navigate(['/login']);
   }
 
 }

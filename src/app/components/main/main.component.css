@@ -14,3 +14,7 @@ h1.app-name {
 .sidenav-container {
   flex: 1;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}

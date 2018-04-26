@@ -6,10 +6,18 @@ import {PageNotFoundComponent} from './app/components/page-not-found/page-not-fo
 import {LoginComponent} from './app/components/login/login.component';
 import {HomeComponent} from './app/components/home/home.component';
 
+import {AuthGuardService} from './app/services/auth-guard.service';
+
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
-    path: 'home', component: MainComponent, children: [
+    path: 'home',
+    component: MainComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      allowedRole: 'admin'
+    },
+    children: [
       {path: 'item1', component: HomeComponent},
       {path: 'item2', component: HomeComponent}
     ]

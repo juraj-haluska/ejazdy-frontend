@@ -34,6 +34,7 @@ import {TokenInterceptor} from './common/token-interceptor';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './common/jwt-interceptor';
 import {ApiService} from './services/api.service';
+import {AuthGuardService} from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {ApiService} from './services/api.service';
     CognitoService,
     ApiService,
     HttpClient,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

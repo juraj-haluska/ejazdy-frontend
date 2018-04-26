@@ -32,6 +32,10 @@ export interface UserAttrs {
 @Injectable()
 export class CognitoService {
 
+  public readonly ROLE_ADMIN = 'admin';
+  public readonly ROLE_INSTRUCTOR = 'instructor';
+  public readonly ROLE_STUDENT = 'student';
+
   private readonly poolData: ICognitoUserPoolData = {
     UserPoolId: environment.userPoolId,
     ClientId: environment.clientId
@@ -145,6 +149,28 @@ export class CognitoService {
     this.userPool.getCurrentUser().signOut();
   }
 
+  public isAuthenticatedAs(role: string): Observable<boolean> {
+    const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
+
+    return Observable.create(observer => {
+      if (cognitoUser != null) {
+        cognitoUser.getSession((err, session: CognitoUserSession) => {
+          if (err == null) {
+            const payload: any = session.getIdToken().decodePayload();
+            const groups: Array<string> = payload['cognito:groups'];
+            if (groups[0] === role) {
+              observer.next(true);
+            }
+          } else {
+            observer.next(false);
+          }
+        });
+      } else {
+        observer.next(false);
+      }
+    });
+  }
+
   public isAuthenticated(): Observable<boolean> {
     const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
 
@@ -153,14 +179,12 @@ export class CognitoService {
         cognitoUser.getSession((err, session: CognitoUserSession) => {
           if (err == null) {
             observer.next(true);
-            observer.complete();
           } else {
-            console.log(err);
-            observer.error(this.loginError);
+            observer.next(false);
           }
         });
       } else {
-        observer.error(this.loginError);
+        observer.next(false);
       }
     });
   }
