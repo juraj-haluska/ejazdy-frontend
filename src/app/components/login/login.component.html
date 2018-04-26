@@ -1,17 +1,87 @@
-<mat-card class="login-card">
-  <mat-card-header>
-    <mat-card-title><h2>Sign in</h2></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field>
-      <input type="email" matInput placeholder="Email">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password">
-    </mat-form-field>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>Sign in</button>
-  </mat-card-actions>
-</mat-card>
+<div class="login-container">
+  <mat-card class="login-card">
+    <div *ngIf="state == STATE_LOGIN">
+      <mat-card-header>
+        <mat-card-title><h2>Sign in with your email and password</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="email" matInput placeholder="Email" [(ngModel)]="email">
+          <span matSuffix></span>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" [type]="hide ? 'password' : 'text'"
+                 [(ngModel)]="password">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="forgotPassword()">Forgot password</button>
+        <button mat-button (click)="signIn()">Sign in</button>
+      </mat-card-actions>
+    </div>
+
+    <div *ngIf="state == STATE_ATTRS">
+      <mat-card-header>
+        <mat-card-title><h2>Set your profile info</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="text" matInput placeholder="First name" [(ngModel)]="firstName">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Last Name" [(ngModel)]="lastName">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="New password" [type]="hide ? 'password' : 'text'"
+                 [(ngModel)]="password">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="saveAttrs()">Save</button>
+      </mat-card-actions>
+    </div>
+
+    <div *ngIf="state == STATE_RESET">
+      <mat-card-header>
+        <mat-card-title><h2>Reset your password</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Your email" [(ngModel)]="email">
+          <span matSuffix></span>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="sendVerificationCode()">Send verification code</button>
+      </mat-card-actions>
+    </div>
+
+    <div *ngIf="state == STATE_CODE">
+      <mat-card-header>
+        <mat-card-title><h2>Set your new password</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Code" [(ngModel)]="confirmCode">
+          <span matSuffix></span>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="New password" [type]="hide ? 'password' : 'text'"
+                 [(ngModel)]="password">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="confirmVerificationCode()">Send verification code</button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>
