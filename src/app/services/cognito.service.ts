@@ -16,6 +16,12 @@ export interface ISignInCallbacks {
   onVerificationCode(data: any);
 }
 
+export interface IGetTokenCallbacks {
+  onSuccess(token: string);
+
+  onError();
+}
+
 export interface UserAttrs {
   password: string;
   family_name: string;
@@ -159,22 +165,19 @@ export class CognitoService {
     });
   }
 
-  public getIdToken(): Observable<String> {
+  public getIdToken(callbacks: IGetTokenCallbacks) {
     const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
 
-    return Observable.create(observer => {
-      if (cognitoUser != null) {
-        cognitoUser.getSession((err, session: CognitoUserSession) => {
-          if (err == null) {
-            observer.next(session.getIdToken().getJwtToken());
-            observer.complete();
-          } else {
-            observer.error(this.loginError);
-          }
-        });
-      } else {
-        observer.error(this.loginError);
-      }
-    });
+    if (cognitoUser != null) {
+      cognitoUser.getSession((err, session: CognitoUserSession) => {
+        if (err == null) {
+          callbacks.onSuccess(session.getIdToken().getJwtToken());
+        } else {
+          callbacks.onError();
+        }
+      });
+    } else {
+      callbacks.onError();
+    }
   }
 }

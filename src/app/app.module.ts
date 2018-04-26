@@ -30,6 +30,10 @@ import {RoutingModule} from '../app.routing';
 
 // services
 import {CognitoService} from './services/cognito.service';
+import {TokenInterceptor} from './common/token-interceptor';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {JwtInterceptor} from './common/jwt-interceptor';
+import {ApiService} from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -54,9 +58,23 @@ import {CognitoService} from './services/cognito.service';
     MatOptionModule,
     MatInputModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    HttpClientModule
   ],
-  providers: [CognitoService],
+  providers: [
+    CognitoService,
+    ApiService,
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
