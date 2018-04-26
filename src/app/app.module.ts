@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // material design components
@@ -13,7 +14,8 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import {AppComponent} from './components/app/app.component';
@@ -23,6 +25,10 @@ import {LoginComponent} from './components/login/login.component';
 
 // routes
 import {RoutingModule} from '../app.routing';
+
+
+// services
+import {CognitoService} from './services/cognito.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,7 @@ import {RoutingModule} from '../app.routing';
     BrowserModule,
     BrowserAnimationsModule,
     RoutingModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
@@ -44,9 +51,10 @@ import {RoutingModule} from '../app.routing';
     MatSelectModule,
     MatOptionModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [CognitoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
