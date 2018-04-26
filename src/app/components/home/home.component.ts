@@ -1,14 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-class MenuItem {
-  public name: string;
-  public link: string;
-
-  constructor(name: string, link: string) {
-    this.name = name;
-    this.link = link;
-  }
-}
+import {CognitoService} from '../../services/cognito.service';
 
 @Component({
   selector: 'app-home',
@@ -17,15 +8,16 @@ class MenuItem {
 })
 export class HomeComponent implements OnInit {
 
-  public items: Array<MenuItem> = [
-    new MenuItem('item 1', 'item1'),
-    new MenuItem('item 2', 'item2')
-  ];
-
-  constructor() {
+  constructor(private cognito: CognitoService) {
   }
 
   ngOnInit() {
+  }
+
+  public button() {
+    this.cognito.getIdToken().subscribe(token => {
+      console.log(token);
+    });
   }
 
 }

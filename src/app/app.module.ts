@@ -20,8 +20,9 @@ import {
 
 import {AppComponent} from './components/app/app.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
-import {HomeComponent} from './components/home/home.component';
+import {MainComponent} from './components/main/main.component';
 import {LoginComponent} from './components/login/login.component';
+import {HomeComponent} from './components/home/home.component';
 
 // routes
 import {RoutingModule} from '../app.routing';
@@ -34,8 +35,9 @@ import {CognitoService} from './services/cognito.service';
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    HomeComponent,
-    LoginComponent
+    MainComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

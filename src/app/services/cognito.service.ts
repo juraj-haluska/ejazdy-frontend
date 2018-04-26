@@ -4,6 +4,7 @@ import {
   CognitoUserPool, CognitoUser, ICognitoUserPoolData,
   IAuthenticationDetailsData, ICognitoUserData, AuthenticationDetails, CognitoUserSession
 } from 'amazon-cognito-identity-js';
+import {Observable} from 'rxjs/Observable';
 
 export interface ISignInCallbacks {
   onSuccess();
@@ -25,14 +26,14 @@ export interface UserAttrs {
 @Injectable()
 export class CognitoService {
 
-  readonly poolData: ICognitoUserPoolData = {
+  private readonly poolData: ICognitoUserPoolData = {
     UserPoolId: environment.userPoolId,
     ClientId: environment.clientId
   };
 
-  readonly userPool = new CognitoUserPool(this.poolData);
+  private readonly userPool = new CognitoUserPool(this.poolData);
 
-  private cognitoUser: CognitoUser = null;
+  private readonly loginError: Error = new Error('login required');
 
   constructor() {
 
@@ -50,9 +51,9 @@ export class CognitoService {
     };
 
     const authenticationDetails: AuthenticationDetails = new AuthenticationDetails(authenticationData);
-    this.cognitoUser = new CognitoUser(userData);
+    const cognitoUser = new CognitoUser(userData);
 
-    this.cognitoUser.authenticateUser(authenticationDetails, {
+    cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (session: CognitoUserSession, userConfirmationNecessary?: boolean) => {
         console.log('user signed in', session);
         callback.onSuccess();
@@ -68,23 +69,29 @@ export class CognitoService {
     });
   }
 
-  public signInUserWithAttrs(userAttributes: UserAttrs, callbacks: ISignInCallbacks) {
-    if (this.cognitoUser != null) {
-      this.cognitoUser.completeNewPasswordChallenge(
-        userAttributes.password,
-        {
-          family_name: userAttributes.family_name,
-          given_name: userAttributes.given_name,
-          phone_number: userAttributes.phone_number
+  public signInUserWithAttrs(email: string, userAttributes: UserAttrs, callbacks: ISignInCallbacks) {
+
+    const userData: ICognitoUserData = {
+      Username: email,
+      Pool: this.userPool
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    cognitoUser.completeNewPasswordChallenge(
+      userAttributes.password,
+      {
+        family_name: userAttributes.family_name,
+        given_name: userAttributes.given_name,
+        phone_number: userAttributes.phone_number
+      },
+      {
+        onSuccess: (session: CognitoUserSession) => {
+          callbacks.onSuccess();
         },
-        {
-          onSuccess: (session: CognitoUserSession) => {
-            callbacks.onSuccess();
-          },
-          onFailure: callbacks.onError
-        }
-      );
-    }
+        onFailure: callbacks.onError
+      }
+    );
   }
 
   public forgotPassword(email: string, callback: ISignInCallbacks) {
@@ -93,8 +100,8 @@ export class CognitoService {
       Pool: this.userPool
     };
 
-    this.cognitoUser = new CognitoUser(userData);
-    this.cognitoUser.forgotPassword({
+    const cognitoUser = new CognitoUser(userData);
+    cognitoUser.forgotPassword({
       onSuccess: data => {
         console.log('password reset success: ', data);
         callback.onSuccess();
@@ -110,13 +117,63 @@ export class CognitoService {
     });
   }
 
-  public confirmNewPassword(verificationCode: string, password: string, callback: ISignInCallbacks) {
-    this.cognitoUser.confirmPassword(verificationCode, password, {
+  public confirmNewPassword(email: string, verificationCode: string, password: string, callback: ISignInCallbacks) {
+    const userData: ICognitoUserData = {
+      Username: email,
+      Pool: this.userPool
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    cognitoUser.confirmPassword(verificationCode, password, {
       onSuccess: () => {
         callback.onSuccess();
       },
       onFailure: () => {
         callback.onError();
+      }
+    });
+  }
+
+  public logout() {
+    this.userPool.getCurrentUser().signOut();
+  }
+
+  public isAuthenticated(): Observable<boolean> {
+    const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
+
+    return Observable.create(observer => {
+      if (cognitoUser != null) {
+        cognitoUser.getSession((err, session: CognitoUserSession) => {
+          if (err == null) {
+            observer.next(true);
+            observer.complete();
+          } else {
+            console.log(err);
+            observer.error(this.loginError);
+          }
+        });
+      } else {
+        observer.error(this.loginError);
+      }
+    });
+  }
+
+  public getIdToken(): Observable<String> {
+    const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
+
+    return Observable.create(observer => {
+      if (cognitoUser != null) {
+        cognitoUser.getSession((err, session: CognitoUserSession) => {
+          if (err == null) {
+            observer.next(session.getIdToken().getJwtToken());
+            observer.complete();
+          } else {
+            observer.error(this.loginError);
+          }
+        });
+      } else {
+        observer.error(this.loginError);
       }
     });
   }

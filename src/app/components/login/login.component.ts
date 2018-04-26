@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
       phone_number: this.phoneNumber
     };
 
-    this.cognito.signInUserWithAttrs(userAttrs, this);
+    this.cognito.signInUserWithAttrs(this.email, userAttrs, this);
   }
 
   public forgotPassword() {
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   }
 
   public confirmVerificationCode() {
-    this.cognito.confirmNewPassword(this.confirmCode, this.password, this);
+    this.cognito.confirmNewPassword(this.email, this.confirmCode, this.password, this);
   }
 
   // callbacks
