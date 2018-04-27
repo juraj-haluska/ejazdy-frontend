@@ -149,7 +149,7 @@ export class CognitoService {
     this.userPool.getCurrentUser().signOut();
   }
 
-  public isAuthenticatedAs(role: string): Observable<boolean> {
+  public isAuthenticatedAs(allowedGroups: Array<string>): Observable<boolean> {
     const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
 
     return Observable.create(observer => {
@@ -157,10 +157,19 @@ export class CognitoService {
         cognitoUser.getSession((err, session: CognitoUserSession) => {
           if (err == null) {
             const payload: any = session.getIdToken().decodePayload();
-            const groups: Array<string> = payload['cognito:groups'];
-            if (groups[0] === role) {
-              observer.next(true);
-            }
+            const tokenGroups: Array<string> = payload['cognito:groups'];
+
+            let allow = false;
+
+            tokenGroups.map(tokenGroup => {
+              allowedGroups.map(allowedGroup => {
+                if (allowedGroup === tokenGroup) {
+                  allow = true;
+                }
+              });
+            });
+
+            observer.next(allow);
           } else {
             observer.next(false);
           }

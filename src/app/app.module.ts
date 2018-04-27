@@ -15,7 +15,9 @@ import {
   MatOptionModule,
   MatInputModule,
   MatCardModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTableModule,
+  MatDialogModule
 } from '@angular/material';
 
 import {AppComponent} from './components/app/app.component';
@@ -35,6 +37,10 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import {JwtInterceptor} from './common/jwt-interceptor';
 import {ApiService} from './services/api.service';
 import {AuthGuardService} from './services/auth-guard.service';
+import {InstructorAdminComponent} from './components/instructor-admin/instructor-admin.component';
+import {InviteInstructorDialogComponent} from './components/dialogs/invite-instructor-dialog/invite-instructor-dialog.component';
+import {RoleGuardService} from './services/role-guard.service';
+import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
 
 @NgModule({
   declarations: [
@@ -42,8 +48,11 @@ import {AuthGuardService} from './services/auth-guard.service';
     PageNotFoundComponent,
     MainComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    InstructorAdminComponent,
+    InviteInstructorDialogComponent
   ],
+  entryComponents: [InviteInstructorDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -60,13 +69,16 @@ import {AuthGuardService} from './services/auth-guard.service';
     MatInputModule,
     MatCardModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [
     CognitoService,
     ApiService,
     HttpClient,
     AuthGuardService,
+    RoleGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -75,6 +87,11 @@ import {AuthGuardService} from './services/auth-guard.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiBaseUrlInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent]

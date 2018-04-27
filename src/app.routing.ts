@@ -7,6 +7,8 @@ import {LoginComponent} from './app/components/login/login.component';
 import {HomeComponent} from './app/components/home/home.component';
 
 import {AuthGuardService} from './app/services/auth-guard.service';
+import {InstructorAdminComponent} from './app/components/instructor-admin/instructor-admin.component';
+import {RoleGuardService} from './app/services/role-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -14,11 +16,15 @@ const routes: Routes = [
     path: 'home',
     component: MainComponent,
     canActivate: [AuthGuardService],
-    data: {
-      allowedRole: 'admin'
-    },
     children: [
-      {path: 'item1', component: HomeComponent},
+      {
+        path: 'instructors',
+        component: InstructorAdminComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['admin']
+        }
+      },
       {path: 'item2', component: HomeComponent}
     ]
   },

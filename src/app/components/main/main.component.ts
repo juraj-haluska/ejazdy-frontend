@@ -20,7 +20,7 @@ class MenuItem {
 export class MainComponent implements OnInit {
 
   public items: Array<MenuItem> = [
-    new MenuItem('item 1', 'item1'),
+    new MenuItem('Instructors', 'instructors'),
     new MenuItem('item 2', 'item2')
   ];
 
@@ -32,8 +32,8 @@ export class MainComponent implements OnInit {
   }
 
   public logout() {
-    this.cognito.logout();
     this.router.navigate(['/login']);
+    this.cognito.logout();
   }
 
 }
