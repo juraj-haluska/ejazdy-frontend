@@ -5,11 +5,11 @@ import {MatDialog, MatTableDataSource} from '@angular/material';
 import {InviteUserDialogComponent} from '../dialogs/invite-user-dialog/invite-user-dialog.component';
 
 @Component({
-  selector: 'app-instructor-admin',
-  templateUrl: './instructor-admin.component.html',
-  styleUrls: ['./instructor-admin.component.css']
+  selector: 'app-student-admin',
+  templateUrl: './student-admin.component.html',
+  styleUrls: ['./student-admin.component.css']
 })
-export class InstructorAdminComponent implements OnInit {
+export class StudentAdminComponent implements OnInit {
 
   public displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'status'];
   public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
@@ -18,12 +18,12 @@ export class InstructorAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchAllInstructors();
+    this.fetchAllStudents();
   }
 
-  private fetchAllInstructors() {
-    this.api.getAllInstructors().subscribe(instructors => {
-      this.dataSource = new MatTableDataSource<User>(instructors);
+  private fetchAllStudents() {
+    this.api.getAllStudents().subscribe(students => {
+      this.dataSource = new MatTableDataSource<User>(students);
     });
   }
 
@@ -31,19 +31,18 @@ export class InstructorAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(InviteUserDialogComponent, {
       width: '300px',
       data: {
-        title: 'Invite new instructor',
-        placeholder: 'Instructor\'s email',
+        title: 'Invite new student',
+        placeholder: 'Student\'s email',
         email: ''
       }
     });
 
     dialogRef.afterClosed().subscribe(email => {
-      this.api.inviteNewInstructor(email).subscribe(newInstructor => {
+      this.api.inviteNewStudent(email).subscribe(newStudent => {
         const data = this.dataSource.data;
-        data.push(newInstructor);
+        data.push(newStudent);
         this.dataSource.data = data;
       });
     });
   }
-
 }

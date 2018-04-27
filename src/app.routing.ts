@@ -9,6 +9,7 @@ import {HomeComponent} from './app/components/home/home.component';
 import {AuthGuardService} from './app/services/auth-guard.service';
 import {InstructorAdminComponent} from './app/components/instructor-admin/instructor-admin.component';
 import {RoleGuardService} from './app/services/role-guard.service';
+import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -25,7 +26,14 @@ const routes: Routes = [
           allowedGroups: ['admin']
         }
       },
-      {path: 'item2', component: HomeComponent}
+      {
+        path: 'students',
+        component: StudentAdminComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['admin']
+        }
+      }
     ]
   },
   {path: 'login', component: LoginComponent},

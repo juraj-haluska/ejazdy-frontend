@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
 
   public items: Array<MenuItem> = [
     new MenuItem('Instructors', 'instructors'),
-    new MenuItem('item 2', 'item2')
+    new MenuItem('Students', 'students')
   ];
 
   constructor(private cognito: CognitoService,

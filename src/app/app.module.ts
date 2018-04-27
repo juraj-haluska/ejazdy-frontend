@@ -38,9 +38,10 @@ import {JwtInterceptor} from './common/jwt-interceptor';
 import {ApiService} from './services/api.service';
 import {AuthGuardService} from './services/auth-guard.service';
 import {InstructorAdminComponent} from './components/instructor-admin/instructor-admin.component';
-import {InviteInstructorDialogComponent} from './components/dialogs/invite-instructor-dialog/invite-instructor-dialog.component';
+import {InviteUserDialogComponent} from './components/dialogs/invite-user-dialog/invite-user-dialog.component';
 import {RoleGuardService} from './services/role-guard.service';
 import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
+import { StudentAdminComponent } from './components/student-admin/student-admin.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +51,10 @@ import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
     LoginComponent,
     HomeComponent,
     InstructorAdminComponent,
-    InviteInstructorDialogComponent
+    InviteUserDialogComponent,
+    StudentAdminComponent
   ],
-  entryComponents: [InviteInstructorDialogComponent],
+  entryComponents: [InviteUserDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
