@@ -19,6 +19,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {
+        path: '',
+        component: HomeComponent
+      },
+      {
         path: 'instructors',
         component: InstructorAdminComponent,
         canActivate: [RoleGuardService],

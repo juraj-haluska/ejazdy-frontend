@@ -19,16 +19,32 @@ class MenuItem {
 })
 export class MainComponent implements OnInit {
 
-  public items: Array<MenuItem> = [
-    new MenuItem('Instructors', 'instructors'),
-    new MenuItem('Students', 'students')
-  ];
+  public items: Array<MenuItem>;
 
   constructor(private cognito: CognitoService,
               private router: Router) {
   }
 
   ngOnInit() {
+    // populate menu - based on user type
+    this.cognito.isAuthenticatedAs(['admin']).subscribe(is => {
+      if (is) {
+        this.items = [
+          new MenuItem('Home', ''),
+          new MenuItem('Instructors', 'instructors'),
+          new MenuItem('Students', 'students')
+        ];
+      }
+    });
+
+    this.cognito.isAuthenticatedAs(['instructor', 'student']).subscribe(is => {
+      if (is) {
+        this.items = [
+          new MenuItem('Home', '')
+        ];
+      }
+    });
+
   }
 
   public logout() {
