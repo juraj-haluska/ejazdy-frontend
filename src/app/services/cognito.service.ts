@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/Observable';
 export interface ISignInCallbacks {
   onSuccess();
 
-  onError();
+  onError(err: any);
 
   onAttrsNeeded();
 
@@ -45,6 +45,8 @@ export class CognitoService {
 
   private readonly loginError: Error = new Error('login required');
 
+  private cognitoUser: CognitoUser = null;
+
   constructor() {
 
   }
@@ -70,10 +72,11 @@ export class CognitoService {
       },
       onFailure: err => {
         console.log('user is not signed in');
-        callback.onError();
+        callback.onError(err);
       },
       newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
         console.log('additional attrs required');
+        this.cognitoUser = cognitoUser;
         callback.onAttrsNeeded();
       }
     });
@@ -81,12 +84,9 @@ export class CognitoService {
 
   public signInUserWithAttrs(email: string, userAttributes: UserAttrs, callbacks: ISignInCallbacks) {
 
-    const userData: ICognitoUserData = {
-      Username: email,
-      Pool: this.userPool
-    };
+    const cognitoUser = this.cognitoUser;
 
-    const cognitoUser = new CognitoUser(userData);
+    console.log('confirming user: ', cognitoUser, userAttributes);
 
     cognitoUser.completeNewPasswordChallenge(
       userAttributes.password,
@@ -118,7 +118,7 @@ export class CognitoService {
       },
       onFailure: err => {
         console.log('password reset fail: ', err);
-        callback.onError();
+        callback.onError(err);
       },
       inputVerificationCode: data => {
         console.log('verification send to', data);
@@ -139,8 +139,8 @@ export class CognitoService {
       onSuccess: () => {
         callback.onSuccess();
       },
-      onFailure: () => {
-        callback.onError();
+      onFailure: (err) => {
+        callback.onError(err);
       }
     });
   }

@@ -67,8 +67,8 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
     this.router.navigate(['/home']);
   }
 
-  public onError() {
-
+  public onError(err: any) {
+    console.log(err);
   }
 
   public onAttrsNeeded() {
