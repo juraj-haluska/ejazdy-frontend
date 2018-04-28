@@ -37,11 +37,20 @@ export class MainComponent implements OnInit {
       }
     });
 
-    this.cognito.isAuthenticatedAs(['instructor', 'student']).subscribe(is => {
+    this.cognito.isAuthenticatedAs(['instructor']).subscribe(is => {
       if (is) {
         this.items = [
           new MenuItem('Home', ''),
           new MenuItem('My lessons', 'calendar/instructor'),
+        ];
+      }
+    });
+
+    this.cognito.isAuthenticatedAs(['student']).subscribe(is => {
+      if (is) {
+        this.items = [
+          new MenuItem('Home', ''),
+          new MenuItem('Register to lesson', 'registration/student')
         ];
       }
     });

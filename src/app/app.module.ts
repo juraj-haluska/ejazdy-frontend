@@ -18,7 +18,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule
+  MatDatepickerModule, MatNativeDateModule, MatChipsModule
 } from '@angular/material';
 
 import {AppComponent} from './components/app/app.component';
@@ -42,6 +42,7 @@ import {RoleGuardService} from './services/role-guard.service';
 import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
 import {StudentAdminComponent} from './components/student-admin/student-admin.component';
 import {CalendarInstructorComponent} from './components/calendar-instructor/calendar-instructor.component';
+import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-reg-student.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {CalendarInstructorComponent} from './components/calendar-instructor/cale
     InstructorAdminComponent,
     InviteUserDialogComponent,
     StudentAdminComponent,
-    CalendarInstructorComponent
+    CalendarInstructorComponent,
+    LessonRegStudentComponent
   ],
   entryComponents: [InviteUserDialogComponent],
   imports: [
@@ -76,7 +78,9 @@ import {CalendarInstructorComponent} from './components/calendar-instructor/cale
     MatTableModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [
     CognitoService,

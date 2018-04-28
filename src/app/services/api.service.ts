@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../model/User';
 import {Lesson} from '../model/Lesson';
+import {RequestOptions} from '@angular/http';
 
 @Injectable()
 export class ApiService {
@@ -49,4 +50,20 @@ export class ApiService {
       lesson
     );
   }
+
+  public registerMeToLesson(lesson: Lesson): Observable<Lesson> {
+    return this.http.put<Lesson>(
+      '/lesson/student/me',
+      lesson
+    );
+  }
+
+  public unregisterMeFromLesson(lesson: Lesson): Observable<Lesson> {
+    lesson.studentId = null;
+    return this.http.put<Lesson>(
+      '/lesson/student/me',
+      lesson
+    );
+  }
+
 }

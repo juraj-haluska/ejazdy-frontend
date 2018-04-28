@@ -3,7 +3,6 @@ import moment = require('moment');
 import {MatTableDataSource} from '@angular/material';
 import {ApiService} from '../../services/api.service';
 import {CognitoService} from '../../services/cognito.service';
-import {Lesson} from '../../model/Lesson';
 
 @Component({
   selector: 'app-calendar-instructor',

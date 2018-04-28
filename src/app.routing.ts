@@ -11,6 +11,7 @@ import {InstructorAdminComponent} from './app/components/instructor-admin/instru
 import {RoleGuardService} from './app/services/role-guard.service';
 import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
 import {CalendarInstructorComponent} from './app/components/calendar-instructor/calendar-instructor.component';
+import {LessonRegStudentComponent} from './app/components/lesson-reg-student/lesson-reg-student.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -45,6 +46,14 @@ const routes: Routes = [
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['admin', 'instructor']
+        }
+      },
+      {
+        path: 'registration/student',
+        component: LessonRegStudentComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['student']
         }
       }
     ]

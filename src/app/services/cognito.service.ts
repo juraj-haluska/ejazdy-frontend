@@ -32,10 +32,6 @@ export interface UserAttrs {
 @Injectable()
 export class CognitoService {
 
-  public readonly ROLE_ADMIN = 'admin';
-  public readonly ROLE_INSTRUCTOR = 'instructor';
-  public readonly ROLE_STUDENT = 'student';
-
   private readonly poolData: ICognitoUserPoolData = {
     UserPoolId: environment.userPoolId,
     ClientId: environment.clientId
