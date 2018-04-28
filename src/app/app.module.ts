@@ -17,7 +17,8 @@ import {
   MatCardModule,
   MatSnackBarModule,
   MatTableModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 
 import {AppComponent} from './components/app/app.component';
@@ -29,8 +30,6 @@ import {HomeComponent} from './components/home/home.component';
 // routes
 import {RoutingModule} from '../app.routing';
 
-
-// services
 import {CognitoService} from './services/cognito.service';
 import {TokenInterceptor} from './common/token-interceptor';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
@@ -41,7 +40,8 @@ import {InstructorAdminComponent} from './components/instructor-admin/instructor
 import {InviteUserDialogComponent} from './components/dialogs/invite-user-dialog/invite-user-dialog.component';
 import {RoleGuardService} from './services/role-guard.service';
 import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
-import { StudentAdminComponent } from './components/student-admin/student-admin.component';
+import {StudentAdminComponent} from './components/student-admin/student-admin.component';
+import {CalendarInstructorComponent} from './components/calendar-instructor/calendar-instructor.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,8 @@ import { StudentAdminComponent } from './components/student-admin/student-admin.
     HomeComponent,
     InstructorAdminComponent,
     InviteUserDialogComponent,
-    StudentAdminComponent
+    StudentAdminComponent,
+    CalendarInstructorComponent
   ],
   entryComponents: [InviteUserDialogComponent],
   imports: [
@@ -73,7 +74,9 @@ import { StudentAdminComponent } from './components/student-admin/student-admin.
     MatSnackBarModule,
     HttpClientModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     CognitoService,

@@ -10,6 +10,7 @@ import {AuthGuardService} from './app/services/auth-guard.service';
 import {InstructorAdminComponent} from './app/components/instructor-admin/instructor-admin.component';
 import {RoleGuardService} from './app/services/role-guard.service';
 import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
+import {CalendarInstructorComponent} from './app/components/calendar-instructor/calendar-instructor.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -36,6 +37,14 @@ const routes: Routes = [
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['admin']
+        }
+      },
+      {
+        path: 'calendar/instructor',
+        component: CalendarInstructorComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['admin', 'instructor']
         }
       }
     ]

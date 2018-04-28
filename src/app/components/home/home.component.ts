@@ -9,19 +9,14 @@ import {ApiService} from '../../services/api.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(
-    private cognito: CognitoService,
-    private api: ApiService
-  ) {
+  constructor(private cognito: CognitoService,
+              private api: ApiService) {
   }
 
   ngOnInit() {
   }
 
   public button() {
-    this.api.getAllInstructors().subscribe(instructors => {
-      console.log(instructors);
-    });
+    console.log(this.cognito.getMyUUID());
   }
-
 }

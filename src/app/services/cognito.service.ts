@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {
   CognitoUserPool, CognitoUser, ICognitoUserPoolData,
-  IAuthenticationDetailsData, ICognitoUserData, AuthenticationDetails, CognitoUserSession
+  IAuthenticationDetailsData, ICognitoUserData, AuthenticationDetails, CognitoUserSession, CognitoUserAttribute
 } from 'amazon-cognito-identity-js';
 import {Observable} from 'rxjs/Observable';
 
@@ -212,5 +212,13 @@ export class CognitoService {
     } else {
       callbacks.onError();
     }
+  }
+
+  public getMyUUID(): string {
+    const cognitoUser: CognitoUser = this.userPool.getCurrentUser();
+    if (cognitoUser != null) {
+      return cognitoUser.getUsername();
+    }
+    return null;
   }
 }

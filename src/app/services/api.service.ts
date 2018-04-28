@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../model/User';
+import {Lesson} from '../model/Lesson';
 
 @Injectable()
 export class ApiService {
@@ -38,4 +39,14 @@ export class ApiService {
       });
   }
 
+  public getLessonsByInstructor(instructorId: string): Observable<Array<Lesson>> {
+    return this.http.get<Array<Lesson>>(`/lesson/instructor/${instructorId}`);
+  }
+
+  public addLessonByMe(lesson: Lesson): Observable<Lesson> {
+    return this.http.post<Lesson>(
+      '/lesson',
+      lesson
+    );
+  }
 }

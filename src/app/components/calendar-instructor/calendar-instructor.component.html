@@ -1,0 +1,41 @@
+<div class="example-container mat-elevation-z8">
+  <mat-toolbar color="primary">
+    <span>My lessons</span>
+    <span class="toolbar-spacer"></span>
+    <span>Start:</span>
+    <span class="spacer"></span>
+    <mat-form-field class="date-input">
+      <input type="datetime-local" matInput [(ngModel)]="startDate">
+    </mat-form-field>
+    <span class="spacer"></span>
+    <span>End:</span>
+    <span class="spacer"></span>
+    <mat-form-field class="date-input">
+      <input type="datetime-local" matInput [(ngModel)]="stopDate">
+    </mat-form-field>
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" (click)="addLesson()">Add lesson</button>
+  </mat-toolbar>
+
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.dateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef>Starts at</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.startDateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="stopTime">
+      <mat-header-cell *matHeaderCellDef>Ends at</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.stopDateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="student">
+      <mat-header-cell *matHeaderCellDef>Student</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.studentId}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
