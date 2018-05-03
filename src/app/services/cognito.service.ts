@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {
   CognitoUserPool, CognitoUser, ICognitoUserPoolData,
-  IAuthenticationDetailsData, ICognitoUserData, AuthenticationDetails, CognitoUserSession, CognitoUserAttribute
+  IAuthenticationDetailsData, ICognitoUserData, AuthenticationDetails, CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import {Observable} from 'rxjs/Observable';
 
@@ -38,8 +38,6 @@ export class CognitoService {
   };
 
   private readonly userPool = new CognitoUserPool(this.poolData);
-
-  private readonly loginError: Error = new Error('login required');
 
   private cognitoUser: CognitoUser = null;
 
@@ -82,8 +80,6 @@ export class CognitoService {
 
     const cognitoUser = this.cognitoUser;
 
-    console.log('confirming user: ', cognitoUser, userAttributes);
-
     cognitoUser.completeNewPasswordChallenge(
       userAttributes.password,
       {
@@ -106,8 +102,8 @@ export class CognitoService {
       Pool: this.userPool
     };
 
-    const cognitoUser = new CognitoUser(userData);
-    cognitoUser.forgotPassword({
+    this.cognitoUser = new CognitoUser(userData);
+    this.cognitoUser.forgotPassword({
       onSuccess: data => {
         console.log('password reset success: ', data);
         callback.onSuccess();
@@ -124,14 +120,7 @@ export class CognitoService {
   }
 
   public confirmNewPassword(email: string, verificationCode: string, password: string, callback: ISignInCallbacks) {
-    const userData: ICognitoUserData = {
-      Username: email,
-      Pool: this.userPool
-    };
-
-    const cognitoUser = new CognitoUser(userData);
-
-    cognitoUser.confirmPassword(verificationCode, password, {
+    this.cognitoUser.confirmPassword(verificationCode, password, {
       onSuccess: () => {
         callback.onSuccess();
       },

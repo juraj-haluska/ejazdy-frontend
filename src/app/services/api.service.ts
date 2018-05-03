@@ -4,27 +4,28 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../model/User';
 import {Lesson} from '../model/Lesson';
-import {RequestOptions} from '@angular/http';
+import {CognitoService} from './cognito.service';
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private cognito: CognitoService) {
   }
 
   public getAllInstructors(): Observable<Array<User>> {
-    return this.http.get<Array<User>>('/instructor');
+    return this.http.get<Array<User>>('/instructors');
   }
 
   public getAllStudents(): Observable<Array<User>> {
-    return this.http.get<Array<User>>('/student');
+    return this.http.get<Array<User>>('/students');
   }
 
   public inviteNewInstructor(email: string): Observable<User> {
     const params = new HttpParams().set('email', email);
 
     return this.http.post<User>(
-      '/instructor',
+      '/instructors',
       null, {
         params: params
       });
@@ -34,35 +35,41 @@ export class ApiService {
     const params = new HttpParams().set('email', email);
 
     return this.http.post<User>(
-      '/student',
+      '/students',
       null, {
         params: params
       });
   }
 
   public getLessonsByInstructor(instructorId: string): Observable<Array<Lesson>> {
-    return this.http.get<Array<Lesson>>(`/lesson/instructor/${instructorId}`);
+    return this.http.get<Array<Lesson>>(`/instructors/${instructorId}/lessons`);
   }
 
   public addLessonByMe(lesson: Lesson): Observable<Lesson> {
+    const instructorId = this.cognito.getMyUUID();
     return this.http.post<Lesson>(
-      '/lesson',
+      `/instructors/${instructorId}/lessons/`,
       lesson
     );
   }
 
   public registerMeToLesson(lesson: Lesson): Observable<Lesson> {
-    return this.http.put<Lesson>(
-      '/lesson/student/me',
-      lesson
+    const startTime = lesson.startTime;
+    const instructorId = lesson.instructorId;
+
+    return this.http.post<Lesson>(
+      `/instructors/${instructorId}/lessons/${startTime}/student/me`,
+      null
     );
   }
 
   public unregisterMeFromLesson(lesson: Lesson): Observable<Lesson> {
+    const startTime = lesson.startTime;
+    const instructorId = lesson.instructorId;
+
     lesson.studentId = null;
-    return this.http.put<Lesson>(
-      '/lesson/student/me',
-      lesson
+    return this.http.delete<Lesson>(
+      `/instructors/${instructorId}/lessons/${startTime}/student/me`
     );
   }
 

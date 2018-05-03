@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ISignInCallbacks, CognitoService, UserAttrs} from '../../services/cognito.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,40 @@ import {MatSnackBar} from '@angular/material';
 })
 export class LoginComponent implements OnInit, ISignInCallbacks {
 
+  // states
   readonly STATE_LOGIN = 0;
   readonly STATE_ATTRS = 1;
   readonly STATE_RESET = 2;
   readonly STATE_CODE = 3;
 
   state = this.STATE_LOGIN;
+
+  // password hiding
   hide = true;
+
+  // fields
   public email: string;
   public password: string;
   public firstName: string;
   public lastName: string;
   public phoneNumber: string;
   public confirmCode: string;
+
+  public emailControl = new FormControl(
+    '',
+    [
+      Validators.required,
+      Validators.email
+    ]
+  );
+
+  public passwordControl = new FormControl(
+    '',
+    [
+      Validators.required,
+      Validators.minLength(8)
+    ]
+  );
 
   constructor(private cognito: CognitoService,
               private router: Router,
@@ -32,8 +54,16 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   ngOnInit() {
   }
 
+  getEmailErrorMessage() {
+    return this.emailControl.hasError('required') ? 'You must enter a value' :
+      this.emailControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   public signIn() {
-    this.cognito.signInUser(this.email, this.password, this);
+    if (this.emailControl.valid && this.passwordControl.valid) {
+      this.cognito.signInUser(this.email, this.password, this);
+    }
   }
 
   public saveAttrs() {
@@ -52,7 +82,9 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   }
 
   public sendVerificationCode() {
-    this.cognito.forgotPassword(this.email, this);
+    if (this.emailControl.valid) {
+      this.cognito.forgotPassword(this.email, this);
+    }
   }
 
   public confirmVerificationCode() {
@@ -61,10 +93,16 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
 
   // callbacks
   public onSuccess() {
-    this.snackBar.open('Welcome!', null, {
-      duration: 2000
+    this.cognito.isAuthenticated().subscribe(is => {
+      if (is) {
+        this.snackBar.open('Welcome!', null, {
+          duration: 2000
+        });
+        this.router.navigate(['/home']);
+      } else {
+        this.state = this.STATE_LOGIN;
+      }
     });
-    this.router.navigate(['/home']);
   }
 
   public onError(err: any) {
