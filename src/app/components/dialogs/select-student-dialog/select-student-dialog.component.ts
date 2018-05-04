@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSelectionList, MatSelectionListChange} from '@angular/material';
+import {MatSelectionList, MatSelectionListChange} from '@angular/material';
 import {ApiService} from '../../../services/api.service';
 import {User} from '../../../model/User';
 

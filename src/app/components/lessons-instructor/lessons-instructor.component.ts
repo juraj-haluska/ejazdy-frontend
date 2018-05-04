@@ -5,6 +5,7 @@ import {ApiService} from '../../services/api.service';
 import {CognitoService} from '../../services/cognito.service';
 import {Lesson} from '../../model/Lesson';
 import {SelectStudentDialogComponent} from '../dialogs/select-student-dialog/select-student-dialog.component';
+import {NewLessonDialogComponent} from '../dialogs/new-lesson-dialog/new-lesson-dialog.component';
 
 @Component({
   selector: 'app-lessons-instructor',
@@ -13,12 +14,8 @@ import {SelectStudentDialogComponent} from '../dialogs/select-student-dialog/sel
 })
 export class LessonsInstructorComponent implements OnInit {
 
-  readonly dateFormat = 'YYYY-MM-DDThh:mm';
-  readonly onlyDateFormat = 'YYYY-MM-DD';
-  readonly onlyTimeFormat = 'hh:mm';
-
-  public startDate: string;
-  public stopDate: string;
+  readonly onlyDateFormat = 'DD-MM-YYYY';
+  readonly onlyTimeFormat = 'HH:mm';
 
   public displayedColumns = ['date', 'startTime', 'stopTime', 'student', 'contextMenu'];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -29,28 +26,15 @@ export class LessonsInstructorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startDate = moment().format(this.dateFormat);
-    this.stopDate = moment().format(this.dateFormat);
     this.fetchMyLessons();
   }
 
   addLesson() {
-    const startDate: moment.Moment = moment(this.startDate, this.dateFormat);
-    const stopDate: moment.Moment = moment(this.stopDate, this.dateFormat);
+    const dialogRef = this.dialog.open(NewLessonDialogComponent, {
+      width: '300px'
+    });
 
-    if (startDate.isValid() && stopDate.isValid()) {
-      const startDateIso: string = startDate.toISOString();
-      const stopDateIso: string = stopDate.toISOString();
-
-      const newLesson = {
-        instructorId: null,
-        startTime: startDateIso,
-        stopTime: stopDateIso,
-        studentId: null,
-        instructorName: null,
-        studentName: null
-      };
-
+    dialogRef.afterClosed().subscribe((newLesson: Lesson) => {
       this.api.addLessonByMe(newLesson).subscribe(lesson => {
         if (lesson != null) {
           const data = this.dataSource.data;
@@ -58,7 +42,7 @@ export class LessonsInstructorComponent implements OnInit {
           this.dataSource.data = data;
         }
       });
-    }
+    });
   }
 
   fetchMyLessons() {
@@ -121,7 +105,7 @@ export class LessonsInstructorComponent implements OnInit {
   private updateLesson(lesson: Lesson) {
     this.dataSource.data = this.dataSource.data.map(lessonView => {
       if (lessonView.instructorId === lesson.instructorId &&
-          lessonView.startTime === lesson.startTime) {
+        lessonView.startTime === lesson.startTime) {
         return this.mapLessonToView(lesson);
       }
       return lessonView;

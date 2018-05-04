@@ -20,6 +20,7 @@ import {
   MatDialogModule,
   MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule
 } from '@angular/material';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 import {AppComponent} from './components/app/app.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
@@ -44,6 +45,7 @@ import {StudentAdminComponent} from './components/student-admin/student-admin.co
 import {LessonsInstructorComponent} from './components/lessons-instructor/lessons-instructor.component';
 import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-reg-student.component';
 import { SelectStudentDialogComponent } from './components/dialogs/select-student-dialog/select-student-dialog.component';
+import { NewLessonDialogComponent } from './components/dialogs/new-lesson-dialog/new-lesson-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,11 +59,13 @@ import { SelectStudentDialogComponent } from './components/dialogs/select-studen
     StudentAdminComponent,
     LessonsInstructorComponent,
     LessonRegStudentComponent,
-    SelectStudentDialogComponent
+    SelectStudentDialogComponent,
+    NewLessonDialogComponent
   ],
   entryComponents: [
     InviteUserDialogComponent,
-    SelectStudentDialogComponent
+    SelectStudentDialogComponent,
+    NewLessonDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +91,8 @@ import { SelectStudentDialogComponent } from './components/dialogs/select-studen
     MatNativeDateModule,
     MatSelectModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatMomentDateModule
   ],
   providers: [
     CognitoService,
