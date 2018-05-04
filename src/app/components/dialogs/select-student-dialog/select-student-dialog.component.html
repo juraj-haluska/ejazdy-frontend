@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Students</h1>
+<div mat-dialog-content>
+  <mat-selection-list #studentSelection>
+    <div *ngFor="let student of students">
+      <mat-list-option [value]="student.id">
+        {{student.firstName}} {{student.lastName}}
+      </mat-list-option>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary"
+          [mat-dialog-close]="null" cdkFocusInitial>
+    Cancel
+  </button>
+  <button mat-raised-button color="primary"
+          [mat-dialog-close]="getSelected()" cdkFocusInitial>
+    Select
+  </button>
+</div>

@@ -73,4 +73,32 @@ export class ApiService {
     );
   }
 
+  public deleteLesson(lesson: Lesson): Observable<Lesson> {
+    const startTime = lesson.startTime;
+    const instructorId = lesson.instructorId;
+
+    return this.http.delete<Lesson>(
+      `/instructors/${instructorId}/lessons/${startTime}`
+    );
+  }
+
+  public registerStudentToLesson(lesson: Lesson, studentId: string): Observable<Lesson> {
+    const startTime = lesson.startTime;
+    const instructorId = lesson.instructorId;
+
+    return this.http.post<Lesson>(
+      `/instructors/${instructorId}/lessons/${startTime}/student/${studentId}`,
+      null
+    );
+  }
+
+  public unregisterStudentToLesson(lesson: Lesson, studentId: string): Observable<Lesson> {
+    const startTime = lesson.startTime;
+    const instructorId = lesson.instructorId;
+
+    return this.http.delete<Lesson>(
+      `/instructors/${instructorId}/lessons/${startTime}/student/${studentId}`
+    );
+  }
+
 }

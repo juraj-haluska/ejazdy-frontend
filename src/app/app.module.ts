@@ -18,7 +18,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule, MatChipsModule
+  MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule
 } from '@angular/material';
 
 import {AppComponent} from './components/app/app.component';
@@ -41,8 +41,9 @@ import {InviteUserDialogComponent} from './components/dialogs/invite-user-dialog
 import {RoleGuardService} from './services/role-guard.service';
 import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
 import {StudentAdminComponent} from './components/student-admin/student-admin.component';
-import {CalendarInstructorComponent} from './components/calendar-instructor/calendar-instructor.component';
+import {LessonsInstructorComponent} from './components/lessons-instructor/lessons-instructor.component';
 import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-reg-student.component';
+import { SelectStudentDialogComponent } from './components/dialogs/select-student-dialog/select-student-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +55,14 @@ import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-
     InstructorAdminComponent,
     InviteUserDialogComponent,
     StudentAdminComponent,
-    CalendarInstructorComponent,
-    LessonRegStudentComponent
+    LessonsInstructorComponent,
+    LessonRegStudentComponent,
+    SelectStudentDialogComponent
   ],
-  entryComponents: [InviteUserDialogComponent],
+  entryComponents: [
+    InviteUserDialogComponent,
+    SelectStudentDialogComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -81,7 +86,8 @@ import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatMenuModule
   ],
   providers: [
     CognitoService,

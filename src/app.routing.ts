@@ -10,7 +10,7 @@ import {AuthGuardService} from './app/services/auth-guard.service';
 import {InstructorAdminComponent} from './app/components/instructor-admin/instructor-admin.component';
 import {RoleGuardService} from './app/services/role-guard.service';
 import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
-import {CalendarInstructorComponent} from './app/components/calendar-instructor/calendar-instructor.component';
+import {LessonsInstructorComponent} from './app/components/lessons-instructor/lessons-instructor.component';
 import {LessonRegStudentComponent} from './app/components/lesson-reg-student/lesson-reg-student.component';
 
 const routes: Routes = [
@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'calendar/instructor',
-        component: CalendarInstructorComponent,
+        component: LessonsInstructorComponent,
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['admin', 'instructor']
