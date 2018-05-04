@@ -46,7 +46,9 @@ export class LessonsInstructorComponent implements OnInit {
         instructorId: null,
         startTime: startDateIso,
         stopTime: stopDateIso,
-        studentId: null
+        studentId: null,
+        instructorName: null,
+        studentName: null
       };
 
       this.api.addLessonByMe(newLesson).subscribe(lesson => {

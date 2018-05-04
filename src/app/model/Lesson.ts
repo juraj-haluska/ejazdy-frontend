@@ -3,4 +3,6 @@ export interface Lesson {
   startTime: string;
   stopTime: string;
   studentId: string;
+  instructorName: string;
+  studentName: string;
 }
