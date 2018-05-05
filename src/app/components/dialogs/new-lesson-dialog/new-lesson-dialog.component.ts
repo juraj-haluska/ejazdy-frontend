@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import moment = require('moment');
+import * as moment from 'moment';
 import {FormControl, Validators} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -107,7 +107,7 @@ export class NewLessonDialogComponent implements OnInit {
 
     if (startTimeParsed.isValid() && stopTimeParsed.isValid()) {
       if (startTimeParsed.isAfter(stopTimeParsed) || startTimeParsed.isSame(stopTimeParsed)) {
-        this.timeRangeError = 'End of the lesson must be after it\'s start.';
+        this.timeRangeError = 'End of the lesson must be after its start.';
       } else {
         this.timeRangeError = null;
       }

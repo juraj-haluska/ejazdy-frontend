@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import moment = require('moment');
+import * as moment from 'moment';
 import {MatButtonToggleGroup, MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {ApiService} from '../../services/api.service';
 import {CognitoService} from '../../services/cognito.service';

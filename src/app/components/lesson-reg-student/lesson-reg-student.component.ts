@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../model/User';
 import {CognitoService} from '../../services/cognito.service';
 import {ApiService} from '../../services/api.service';
-import {MatTableDataSource} from '@angular/material';
-import moment = require('moment');
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import * as moment from 'moment';
 import {Lesson} from '../../model/Lesson';
 
 @Component({
@@ -16,11 +16,13 @@ export class LessonRegStudentComponent implements OnInit {
   instructors: Array<User> = new Array<User>();
   selectedInstructorId: string;
 
-  readonly onlyDateFormat = 'YYYY-MM-DD';
-  readonly onlyTimeFormat = 'hh:mm';
+  readonly onlyDateFormat = 'DD.MM.YYYY';
+  readonly onlyTimeFormat = 'HH:mm';
 
   public displayedColumns = ['date', 'startTime', 'stopTime', 'status'];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public cognito: CognitoService,
               private api: ApiService) {
@@ -34,6 +36,10 @@ export class LessonRegStudentComponent implements OnInit {
   fetchInstructors() {
     this.api.getAllInstructors().subscribe(instructors => {
       this.instructors = instructors;
+      if (this.instructors.length > 0) {
+        this.selectedInstructorId = this.instructors[0].id;
+        this.onInstructorSelected();
+      }
     });
   }
 
@@ -42,9 +48,10 @@ export class LessonRegStudentComponent implements OnInit {
   }
 
   fetchLessonsByInstructor(instructorId: string) {
-    this.api.getLessonsByInstructor(instructorId).subscribe(lessons => {
+    this.api.getLessonsByInstructorUpcoming(instructorId).subscribe(lessons => {
       lessons.map(this.mapLessonToView);
       this.dataSource = new MatTableDataSource<any>(lessons);
+      this.dataSource.paginator = this.paginator;
     });
   }
 

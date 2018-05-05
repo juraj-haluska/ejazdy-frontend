@@ -3,24 +3,26 @@
 
     <div *ngIf="state == STATE_LOGIN">
       <h4>Sign in</h4>
-      <mat-form-field>
-        <input matInput placeholder="Enter your email"
-               [formControl]="emailControl" required
-               [(ngModel)]="email">
-        <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input type="password" matInput placeholder="Password"
-               [type]="hide ? 'password' : 'text'"
-               [formControl]="passwordControl"
-               [(ngModel)]="password" required>
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-      </mat-form-field>
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Enter your email"
+                 [formControl]="emailControl" required
+                 [(ngModel)]="email">
+          <mat-error *ngIf="emailControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password"
+                 [type]="hide ? 'password' : 'text'"
+                 [formControl]="passwordControl"
+                 [(ngModel)]="password" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
 
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="forgotPassword()">Forgot password</button>
-        <button mat-raised-button color="primary" (click)="signIn()">Sign in</button>
-      </mat-card-actions>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="signIn()" type="submit">Sign in</button>
+          <button mat-raised-button color="primary" (click)="forgotPassword()">Forgot password</button>
+        </mat-card-actions>
+      </form>
     </div>
 
     <div *ngIf="state == STATE_ATTRS">

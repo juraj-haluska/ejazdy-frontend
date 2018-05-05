@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {User} from '../model/User';
 import {Lesson} from '../model/Lesson';
 import {CognitoService} from './cognito.service';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Injectable()
 export class ApiService {
@@ -49,6 +49,15 @@ export class ApiService {
   public getLessonsByInstructorUpcoming(instructorId: string): Observable<Array<Lesson>> {
     return this.http.get<Array<Lesson>>(
       `/instructors/${instructorId}/lessons`,
+      {
+        params: new HttpParams().set('since', moment().toISOString())
+      }
+    );
+  }
+
+  public getLessonsByMeUpcoming(): Observable<Array<Lesson>> {
+    return this.http.get<Array<Lesson>>(
+      `/students/me/lessons`,
       {
         params: new HttpParams().set('since', moment().toISOString())
       }

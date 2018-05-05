@@ -12,7 +12,7 @@
 
   <mat-sidenav-container class="sidenav-container">
 
-    <mat-sidenav #sidenav mode="side" opened="true" [fixedInViewport]="false">
+    <mat-sidenav class="sidenav" #sidenav mode="side" opened="true" [fixedInViewport]="false">
       <mat-nav-list>
         <div *ngFor="let item of items">
         <a mat-list-item [routerLink]="[item.link]" routerLinkActive="selected">

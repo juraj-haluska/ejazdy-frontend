@@ -1,0 +1,30 @@
+<div class="example-container mat-elevation-z8">
+  <mat-toolbar color="primary">
+    <span>My lessons</span>
+  </mat-toolbar>
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.dateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef>Starts at</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.startDateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="stopTime">
+      <mat-header-cell *matHeaderCellDef>Ends at</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.stopDateString}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="instructor">
+      <mat-header-cell *matHeaderCellDef>Instructor</mat-header-cell>
+      <mat-cell *matCellDef="let lesson"> {{lesson.instructorName}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>

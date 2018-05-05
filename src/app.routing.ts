@@ -12,6 +12,7 @@ import {RoleGuardService} from './app/services/role-guard.service';
 import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
 import {LessonsInstructorComponent} from './app/components/lessons-instructor/lessons-instructor.component';
 import {LessonRegStudentComponent} from './app/components/lesson-reg-student/lesson-reg-student.component';
+import {LessonsListStudentComponent} from './app/components/lessons-list-student/lessons-list-student.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -51,6 +52,14 @@ const routes: Routes = [
       {
         path: 'registration/student',
         component: LessonRegStudentComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['student']
+        }
+      },
+      {
+        path: 'student/lessons',
+        component: LessonsListStudentComponent,
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['student']

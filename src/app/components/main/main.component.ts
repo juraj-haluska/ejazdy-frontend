@@ -50,7 +50,8 @@ export class MainComponent implements OnInit {
       if (is) {
         this.items = [
           new MenuItem('Home', ''),
-          new MenuItem('Register to lesson', 'registration/student')
+          new MenuItem('Register to lesson', 'registration/student'),
+          new MenuItem('My lessons', 'student/lessons')
         ];
       }
     });

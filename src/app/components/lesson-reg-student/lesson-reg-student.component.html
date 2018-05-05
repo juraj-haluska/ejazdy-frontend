@@ -2,13 +2,18 @@
   <mat-toolbar color="primary">
     <span>Lesson registration</span>
     <span class="toolbar-spacer"></span>
-    <mat-form-field class="instructor-list">
-      <mat-select color="accent" placeholder="Instructor" [(value)]="selectedInstructorId" (valueChange)="onInstructorSelected()">
+    <p style="margin-right: 16px">Instructor:</p>
+    <mat-card class="instructor-card">
+      <mat-select
+        style="color: white"
+        placeholder="Instructor"
+        [(value)]="selectedInstructorId"
+        (valueChange)="onInstructorSelected()">
         <mat-option *ngFor="let instructor of instructors" [value]="instructor.id">
           {{ instructor.firstName + ' ' + instructor.lastName }}
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-card>
   </mat-toolbar>
 
   <mat-table #table [dataSource]="dataSource">
@@ -35,7 +40,8 @@
         <button *ngIf="lesson.studentId == null" mat-raised-button color="primary" (click)="registerMe(lesson)">
           Register
         </button>
-        <button *ngIf="lesson.studentId == cognito.getMyUUID()" mat-raised-button color="primary" (click)="unRegisterMe(lesson)">
+        <button *ngIf="lesson.studentId == cognito.getMyUUID()" mat-raised-button color="primary"
+                (click)="unRegisterMe(lesson)">
           Unregister
         </button>
       </mat-cell>
@@ -43,5 +49,10 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
 
 </div>
