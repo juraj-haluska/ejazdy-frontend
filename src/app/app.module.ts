@@ -18,7 +18,7 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule
+  MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule, MatPaginatorModule, MatRadioModule, MatButtonToggleModule
 } from '@angular/material';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
@@ -92,7 +92,10 @@ import { NewLessonDialogComponent } from './components/dialogs/new-lesson-dialog
     MatSelectModule,
     MatChipsModule,
     MatMenuModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatButtonToggleModule
   ],
   providers: [
     CognitoService,

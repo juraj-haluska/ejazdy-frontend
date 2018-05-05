@@ -8,12 +8,17 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" placeholder="Begin"
-             [formControl]="startTime" required>
+             [formControl]="startTime" required
+             (input)="checkValidTimeRange()">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" placeholder="Begin"
-             [formControl]="stopTime" required>
+      <input matInput type="text" placeholder="End"
+             [formControl]="stopTime" required
+              (input)="checkValidTimeRange()">
     </mat-form-field>
+    <mat-error *ngIf="timeRangeError">
+      {{timeRangeError}}
+    </mat-error>
   </div>
   <div mat-dialog-actions>
     <button mat-raised-button color="primary"

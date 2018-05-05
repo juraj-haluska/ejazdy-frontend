@@ -2,6 +2,14 @@
   <mat-toolbar color="primary">
     <span>My lessons</span>
     <span class="toolbar-spacer"></span>
+    <mat-button-toggle-group
+      #fetchOptions
+      style="background-color: white"
+      (change)="fetchMyLessons()">
+      <mat-button-toggle value="upcoming">Upcoming</mat-button-toggle>
+      <mat-button-toggle value="all">All</mat-button-toggle>
+    </mat-button-toggle-group>
+    <span class="spacer"></span>
     <button mat-raised-button color="accent" (click)="addLesson()">Add lesson</button>
   </mat-toolbar>
 
@@ -46,5 +54,9 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>

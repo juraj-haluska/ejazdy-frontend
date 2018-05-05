@@ -47,6 +47,8 @@ export class NewLessonDialogComponent implements OnInit {
     ]
   );
 
+  timeRangeError: string = null;
+
   constructor(public dialogRef: MatDialogRef<NewLessonDialogComponent>) {
   }
 
@@ -54,6 +56,11 @@ export class NewLessonDialogComponent implements OnInit {
   }
 
   submit() {
+    this.checkValidTimeRange();
+    if (this.timeRangeError != null) {
+      return;
+    }
+
     if (this.date.valid && this.startTime.valid && this.stopTime.valid) {
 
       const date: moment.Moment = this.date.value;
@@ -90,6 +97,19 @@ export class NewLessonDialogComponent implements OnInit {
         this.dialogRef.close(lesson);
       } else {
         this.dialogRef.close(null);
+      }
+    }
+  }
+
+  checkValidTimeRange() {
+    const startTimeParsed: moment.Moment = moment(this.startTime.value, this.timeFormat);
+    const stopTimeParsed: moment.Moment = moment(this.stopTime.value, this.timeFormat);
+
+    if (startTimeParsed.isValid() && stopTimeParsed.isValid()) {
+      if (startTimeParsed.isAfter(stopTimeParsed) || startTimeParsed.isSame(stopTimeParsed)) {
+        this.timeRangeError = 'End of the lesson must be after it\'s start.';
+      } else {
+        this.timeRangeError = null;
       }
     }
   }

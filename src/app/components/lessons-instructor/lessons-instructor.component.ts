@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import moment = require('moment');
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatButtonToggleGroup, MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {ApiService} from '../../services/api.service';
 import {CognitoService} from '../../services/cognito.service';
 import {Lesson} from '../../model/Lesson';
@@ -14,11 +14,14 @@ import {NewLessonDialogComponent} from '../dialogs/new-lesson-dialog/new-lesson-
 })
 export class LessonsInstructorComponent implements OnInit {
 
-  readonly onlyDateFormat = 'DD-MM-YYYY';
+  readonly onlyDateFormat = 'DD.MM.YYYY';
   readonly onlyTimeFormat = 'HH:mm';
 
   public displayedColumns = ['date', 'startTime', 'stopTime', 'student', 'contextMenu'];
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatButtonToggleGroup) fetchOptions: MatButtonToggleGroup;
 
   constructor(private api: ApiService,
               private cognito: CognitoService,
@@ -26,6 +29,7 @@ export class LessonsInstructorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchOptions.value = 'upcoming';
     this.fetchMyLessons();
   }
 
@@ -47,13 +51,22 @@ export class LessonsInstructorComponent implements OnInit {
 
   fetchMyLessons() {
     const myUUID = this.cognito.getMyUUID();
-    this.api.getLessonsByInstructor(myUUID).subscribe(lessons => {
 
+    const fetchOption = this.fetchOptions.value;
+
+    const subscribtion = (lessons) => {
       // map lessons to view model (maybe should be class for this)
       lessons.map(this.mapLessonToView);
 
       this.dataSource = new MatTableDataSource<any>(lessons);
-    });
+      this.dataSource.paginator = this.paginator;
+    };
+
+    if (fetchOption === 'all') {
+      this.api.getLessonsByInstructor(myUUID).subscribe(subscribtion);
+    } else {
+      this.api.getLessonsByInstructorUpcoming(myUUID).subscribe(subscribtion);
+    }
   }
 
   // fixes undefined this
@@ -68,7 +81,7 @@ export class LessonsInstructorComponent implements OnInit {
     mappedLesson.stopDateString = stopDateMoment.format(this.onlyTimeFormat);
 
     return mappedLesson;
-  }
+  };
 
   deleteLesson(lesson: Lesson) {
     this.api.deleteLesson(lesson).subscribe(deletedLesson => {
