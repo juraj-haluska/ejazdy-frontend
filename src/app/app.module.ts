@@ -37,13 +37,13 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import {JwtInterceptor} from './common/jwt-interceptor';
 import {ApiService} from './services/api.service';
 import {AuthGuardService} from './services/auth-guard.service';
-import {InstructorAdminComponent} from './components/instructor-admin/instructor-admin.component';
+import {InstructorsAdminComponent} from './components/instructors-admin/instructors-admin.component';
 import {InviteUserDialogComponent} from './components/dialogs/invite-user-dialog/invite-user-dialog.component';
 import {RoleGuardService} from './services/role-guard.service';
 import {ApiBaseUrlInterceptor} from './common/api-base-url-interceptor';
-import {StudentAdminComponent} from './components/student-admin/student-admin.component';
+import {StudentsAdminComponent} from './components/students-admin/students-admin.component';
 import {LessonsInstructorComponent} from './components/lessons-instructor/lessons-instructor.component';
-import {LessonRegStudentComponent} from './components/lesson-reg-student/lesson-reg-student.component';
+import {LessonsRegStudentComponent} from './components/lessons-reg-student/lessons-reg-student.component';
 import { SelectStudentDialogComponent } from './components/dialogs/select-student-dialog/select-student-dialog.component';
 import { NewLessonDialogComponent } from './components/dialogs/new-lesson-dialog/new-lesson-dialog.component';
 import { LessonsListStudentComponent } from './components/lessons-list-student/lessons-list-student.component';
@@ -55,11 +55,11 @@ import { LessonsListStudentComponent } from './components/lessons-list-student/l
     MainComponent,
     LoginComponent,
     HomeComponent,
-    InstructorAdminComponent,
+    InstructorsAdminComponent,
     InviteUserDialogComponent,
-    StudentAdminComponent,
+    StudentsAdminComponent,
     LessonsInstructorComponent,
-    LessonRegStudentComponent,
+    LessonsRegStudentComponent,
     SelectStudentDialogComponent,
     NewLessonDialogComponent,
     LessonsListStudentComponent

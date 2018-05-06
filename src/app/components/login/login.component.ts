@@ -69,8 +69,8 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   public saveAttrs() {
     const userAttrs: UserAttrs = {
       password: this.password,
-      family_name: this.firstName,
-      given_name: this.lastName,
+      given_name: this.firstName,
+      family_name: this.lastName,
       phone_number: this.phoneNumber
     };
 

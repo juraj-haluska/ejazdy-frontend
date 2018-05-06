@@ -7,11 +7,11 @@ import * as moment from 'moment';
 import {Lesson} from '../../model/Lesson';
 
 @Component({
-  selector: 'app-lesson-reg-student',
-  templateUrl: './lesson-reg-student.component.html',
-  styleUrls: ['./lesson-reg-student.component.css']
+  selector: 'app-lessons-reg-student',
+  templateUrl: './lessons-reg-student.component.html',
+  styleUrls: ['./lessons-reg-student.component.css']
 })
-export class LessonRegStudentComponent implements OnInit {
+export class LessonsRegStudentComponent implements OnInit {
 
   instructors: Array<User> = new Array<User>();
   selectedInstructorId: string;

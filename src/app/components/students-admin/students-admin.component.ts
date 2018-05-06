@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {User} from '../../model/User';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {InviteUserDialogComponent} from '../dialogs/invite-user-dialog/invite-user-dialog.component';
 
 @Component({
-  selector: 'app-student-admin',
-  templateUrl: './student-admin.component.html',
-  styleUrls: ['./student-admin.component.css']
+  selector: 'app-students-admin',
+  templateUrl: './students-admin.component.html',
+  styleUrls: ['./students-admin.component.css']
 })
-export class StudentAdminComponent implements OnInit {
+export class StudentsAdminComponent implements OnInit {
 
-  public displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'status'];
+  public displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'status', 'contextMenu'];
   public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private api: ApiService, public dialog: MatDialog) {
   }
@@ -24,6 +26,7 @@ export class StudentAdminComponent implements OnInit {
   private fetchAllStudents() {
     this.api.getAllStudents().subscribe(students => {
       this.dataSource = new MatTableDataSource<User>(students);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -43,6 +46,18 @@ export class StudentAdminComponent implements OnInit {
         data.push(newStudent);
         this.dataSource.data = data;
       });
+    });
+  }
+
+  deleteStudent(student: User) {
+    this.api.deleteStudent(student.id).subscribe(deletedStudent => {
+      if (deletedStudent) {
+        const filteredData = this.dataSource.data.filter(i => {
+          return i.id !== deletedStudent.id;
+        });
+
+        this.dataSource.data = filteredData;
+      }
     });
   }
 }

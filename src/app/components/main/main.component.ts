@@ -21,6 +21,8 @@ export class MainComponent implements OnInit {
 
   public items: Array<MenuItem>;
 
+  public userType: string;
+
   constructor(private cognito: CognitoService,
               private router: Router) {
   }
@@ -34,6 +36,7 @@ export class MainComponent implements OnInit {
           new MenuItem('Instructors', 'instructors'),
           new MenuItem('Students', 'students')
         ];
+        this.userType = 'Admin';
       }
     });
 
@@ -43,6 +46,7 @@ export class MainComponent implements OnInit {
           new MenuItem('Home', ''),
           new MenuItem('My lessons', 'calendar/instructor'),
         ];
+        this.userType = 'Instructor';
       }
     });
 
@@ -53,6 +57,7 @@ export class MainComponent implements OnInit {
           new MenuItem('Register to lesson', 'registration/student'),
           new MenuItem('My lessons', 'student/lessons')
         ];
+        this.userType = 'Student';
       }
     });
 

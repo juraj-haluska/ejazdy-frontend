@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {User} from '../../model/User';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {InviteUserDialogComponent} from '../dialogs/invite-user-dialog/invite-user-dialog.component';
 
 @Component({
-  selector: 'app-instructor-admin',
-  templateUrl: './instructor-admin.component.html',
-  styleUrls: ['./instructor-admin.component.css']
+  selector: 'app-instructors-admin',
+  templateUrl: './instructors-admin.component.html',
+  styleUrls: ['./instructors-admin.component.css']
 })
-export class InstructorAdminComponent implements OnInit {
+export class InstructorsAdminComponent implements OnInit {
 
-  public displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'status'];
+  public displayedColumns = ['firstName', 'lastName', 'email', 'phone', 'status', 'contextMenu'];
   public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private api: ApiService, public dialog: MatDialog) {
   }
@@ -24,6 +26,7 @@ export class InstructorAdminComponent implements OnInit {
   private fetchAllInstructors() {
     this.api.getAllInstructors().subscribe(instructors => {
       this.dataSource = new MatTableDataSource<User>(instructors);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -46,4 +49,15 @@ export class InstructorAdminComponent implements OnInit {
     });
   }
 
+  deleteInstructor(instructor: User) {
+    this.api.deleteInstructor(instructor.id).subscribe(deletedInstructor => {
+      if (deletedInstructor) {
+        const filteredData = this.dataSource.data.filter(i => {
+          return i.id !== deletedInstructor.id;
+        });
+
+        this.dataSource.data = filteredData;
+      }
+    });
+  }
 }

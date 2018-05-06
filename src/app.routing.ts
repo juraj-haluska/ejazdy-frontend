@@ -7,11 +7,11 @@ import {LoginComponent} from './app/components/login/login.component';
 import {HomeComponent} from './app/components/home/home.component';
 
 import {AuthGuardService} from './app/services/auth-guard.service';
-import {InstructorAdminComponent} from './app/components/instructor-admin/instructor-admin.component';
+import {InstructorsAdminComponent} from './app/components/instructors-admin/instructors-admin.component';
 import {RoleGuardService} from './app/services/role-guard.service';
-import {StudentAdminComponent} from './app/components/student-admin/student-admin.component';
+import {StudentsAdminComponent} from './app/components/students-admin/students-admin.component';
 import {LessonsInstructorComponent} from './app/components/lessons-instructor/lessons-instructor.component';
-import {LessonRegStudentComponent} from './app/components/lesson-reg-student/lesson-reg-student.component';
+import {LessonsRegStudentComponent} from './app/components/lessons-reg-student/lessons-reg-student.component';
 import {LessonsListStudentComponent} from './app/components/lessons-list-student/lessons-list-student.component';
 
 const routes: Routes = [
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'instructors',
-        component: InstructorAdminComponent,
+        component: InstructorsAdminComponent,
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['admin']
@@ -35,7 +35,7 @@ const routes: Routes = [
       },
       {
         path: 'students',
-        component: StudentAdminComponent,
+        component: StudentsAdminComponent,
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['admin']
@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'registration/student',
-        component: LessonRegStudentComponent,
+        component: LessonsRegStudentComponent,
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['student']

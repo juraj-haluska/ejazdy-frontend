@@ -1,31 +1,47 @@
 <div class="example-container mat-elevation-z8">
   <mat-toolbar color="primary">
-    <span>List of instructors</span>
+    <span>List of students</span>
     <span class="toolbar-spacer"></span>
     <button mat-raised-button color="accent" (click)="openInviteNewDialog()">Invite new</button>
   </mat-toolbar>
   <mat-table #table [dataSource]="dataSource">
     <ng-container matColumnDef="firstName">
       <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
-      <mat-cell *matCellDef="let instructor"> {{instructor.firstName}}</mat-cell>
+      <mat-cell *matCellDef="let student"> {{student.firstName}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="lastName">
       <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
-      <mat-cell *matCellDef="let instructor"> {{instructor.lastName}}</mat-cell>
+      <mat-cell *matCellDef="let student"> {{student.lastName}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-      <mat-cell *matCellDef="let instructor"> {{instructor.email}}</mat-cell>
+      <mat-cell *matCellDef="let student"> {{student.email}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="phone">
       <mat-header-cell *matHeaderCellDef>Phone number</mat-header-cell>
-      <mat-cell *matCellDef="let instructor"> {{instructor.phone}}</mat-cell>
+      <mat-cell *matCellDef="let student"> {{student.phone}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-      <mat-cell *matCellDef="let instructor"> {{instructor.status}}</mat-cell>
+      <mat-cell *matCellDef="let student"> {{student.status}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="contextMenu">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let student">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deleteStudent(student)">Delete student</button>
+        </mat-menu>
+      </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>

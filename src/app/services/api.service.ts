@@ -42,6 +42,14 @@ export class ApiService {
       });
   }
 
+  public deleteInstructor(instructorId: string): Observable<User> {
+    return this.http.delete<User>(`/instructors/${instructorId}`);
+  }
+
+  public deleteStudent(studentId: string): Observable<User> {
+    return this.http.delete<User>(`/students/${studentId}`);
+  }
+
   public getLessonsByInstructor(instructorId: string): Observable<Array<Lesson>> {
     return this.http.get<Array<Lesson>>(`/instructors/${instructorId}/lessons`);
   }
