@@ -34,7 +34,8 @@ export class MainComponent implements OnInit {
         this.items = [
           new MenuItem('Home', ''),
           new MenuItem('Instructors', 'instructors'),
-          new MenuItem('Students', 'students')
+          new MenuItem('Students', 'students'),
+          new MenuItem('Lessons', 'lessons')
         ];
         this.userType = 'Admin';
       }

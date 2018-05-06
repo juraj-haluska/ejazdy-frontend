@@ -47,6 +47,7 @@ import {LessonsRegStudentComponent} from './components/lessons-reg-student/lesso
 import { SelectStudentDialogComponent } from './components/dialogs/select-student-dialog/select-student-dialog.component';
 import { NewLessonDialogComponent } from './components/dialogs/new-lesson-dialog/new-lesson-dialog.component';
 import { LessonsListStudentComponent } from './components/lessons-list-student/lessons-list-student.component';
+import { LessonsAdminComponent } from './components/lessons-admin/lessons-admin.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { LessonsListStudentComponent } from './components/lessons-list-student/l
     LessonsRegStudentComponent,
     SelectStudentDialogComponent,
     NewLessonDialogComponent,
-    LessonsListStudentComponent
+    LessonsListStudentComponent,
+    LessonsAdminComponent
   ],
   entryComponents: [
     InviteUserDialogComponent,

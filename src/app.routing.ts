@@ -13,6 +13,7 @@ import {StudentsAdminComponent} from './app/components/students-admin/students-a
 import {LessonsInstructorComponent} from './app/components/lessons-instructor/lessons-instructor.component';
 import {LessonsRegStudentComponent} from './app/components/lessons-reg-student/lessons-reg-student.component';
 import {LessonsListStudentComponent} from './app/components/lessons-list-student/lessons-list-student.component';
+import {LessonsAdminComponent} from './app/components/lessons-admin/lessons-admin.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -63,6 +64,14 @@ const routes: Routes = [
         canActivate: [RoleGuardService],
         data: {
           allowedGroups: ['student']
+        }
+      },
+      {
+        path: 'lessons',
+        component: LessonsAdminComponent,
+        canActivate: [RoleGuardService],
+        data: {
+          allowedGroups: ['admin']
         }
       }
     ]
