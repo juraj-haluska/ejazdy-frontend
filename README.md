@@ -2,6 +2,7 @@
 
 Frontent v Angulare ku semestrálnej práci eJazdy. Backend
 a inštrukcie na spustenie backendu sa nachádzajú v repozitáry ejazdy-backend.
+Autor - Juraj Haluška (https://github.com/spacive)
 
 ## Popis semestrálnej práce
 
@@ -22,10 +23,11 @@ jazdy, ktoré boli vypísané inštruktorom.
 - Amazon DynamoDb
 - Angular
 
-### Požiadavky na spustenie frontendu
+### Inštalácia a spustenie
+
+Požiadavky na spustenie frontendu
 - Node.js
 
-### Inštalácia a spustenie
 Naklonovanie repozitára
 ```
 git clone [repo_url]
@@ -42,7 +44,7 @@ Spustenie webového servera
 ng serve
 ```
 
-Web by mal byť dostupný na localhost:4200
+Web by mal byť dostupný na localhost:4200.
 Ak je tento port obsadený, je možné zvoliť iný port
 pridaním `--port [port]`
 
