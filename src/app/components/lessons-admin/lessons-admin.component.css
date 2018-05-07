@@ -5,11 +5,6 @@
   padding: 24px;
 }
 
-.date-input {
-  width: 200px;
-  font-size: 14px;
-}
-
 .toolbar-spacer {
   flex: 1 1 auto;
 }

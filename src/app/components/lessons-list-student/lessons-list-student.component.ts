@@ -26,8 +26,6 @@ export class LessonsListStudentComponent implements OnInit {
   }
 
   fetchMyLessons() {
-    const myUUID = this.cognito.getMyUUID();
-
     this.api.getLessonsByMeUpcoming().subscribe((lessons) => {
       // map lessons to view model (maybe should be class for this)
       lessons.map(this.mapLessonToView);
@@ -50,5 +48,5 @@ export class LessonsListStudentComponent implements OnInit {
     mappedLesson.stopDateString = stopDateMoment.format(this.onlyTimeFormat);
 
     return mappedLesson;
-  };
+  }
 }

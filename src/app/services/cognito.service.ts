@@ -60,7 +60,7 @@ export class CognitoService {
     const cognitoUser = new CognitoUser(userData);
 
     cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (session: CognitoUserSession, userConfirmationNecessary?: boolean) => {
+      onSuccess: (session: CognitoUserSession) => {
         console.log('user signed in', session);
         callback.onSuccess();
       },
@@ -68,7 +68,7 @@ export class CognitoService {
         console.log('user is not signed in');
         callback.onError(err);
       },
-      newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
+      newPasswordRequired: () => {
         console.log('additional attrs required');
         this.cognitoUser = cognitoUser;
         callback.onAttrsNeeded();
@@ -88,7 +88,7 @@ export class CognitoService {
         phone_number: userAttributes.phone_number
       },
       {
-        onSuccess: (session: CognitoUserSession) => {
+        onSuccess: () => {
           callbacks.onSuccess();
         },
         onFailure: callbacks.onError
@@ -170,7 +170,7 @@ export class CognitoService {
 
     return Observable.create(observer => {
       if (cognitoUser != null) {
-        cognitoUser.getSession((err, session: CognitoUserSession) => {
+        cognitoUser.getSession((err) => {
           if (err == null) {
             observer.next(true);
           } else {

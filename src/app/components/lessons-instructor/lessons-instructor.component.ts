@@ -81,7 +81,7 @@ export class LessonsInstructorComponent implements OnInit {
     mappedLesson.stopDateString = stopDateMoment.format(this.onlyTimeFormat);
 
     return mappedLesson;
-  };
+  }
 
   deleteLesson(lesson: Lesson) {
     this.api.deleteLesson(lesson).subscribe(deletedLesson => {

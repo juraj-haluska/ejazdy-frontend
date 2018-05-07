@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.api.getMyProfile().subscribe(profile => {
       if (this.userType === 'Student') {
         this.api.getHoursByStudent(profile.id).subscribe(hours => {
-          this.hours = hours;
+          this.hours = Math.round(hours * 100) / 100;
         });
       }
       this.profile = profile;

@@ -13,7 +13,7 @@ import {Lesson} from '../../model/Lesson';
 })
 export class LessonsRegStudentComponent implements OnInit {
 
-  instructors: Array<User> = new Array<User>();
+  instructors: Array<User> = [];
   selectedInstructorId: string;
 
   readonly onlyDateFormat = 'DD.MM.YYYY';
@@ -66,7 +66,7 @@ export class LessonsRegStudentComponent implements OnInit {
     mappedLesson.stopDateString = stopDateMoment.format(this.onlyTimeFormat);
 
     return mappedLesson;
-  };
+  }
 
   registerMe(lesson: Lesson) {
     lesson.studentId = this.cognito.getMyUUID();

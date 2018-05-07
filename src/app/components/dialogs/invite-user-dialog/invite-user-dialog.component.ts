@@ -8,8 +8,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class InviteUserDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<InviteUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {

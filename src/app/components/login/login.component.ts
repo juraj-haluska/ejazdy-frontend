@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   }
 
   public onError(err: any) {
-    console.log(err);
+    alert('wrong password');
   }
 
   public onAttrsNeeded() {

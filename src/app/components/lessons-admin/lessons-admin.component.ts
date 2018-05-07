@@ -13,7 +13,7 @@ import {SelectStudentDialogComponent} from '../dialogs/select-student-dialog/sel
 })
 export class LessonsAdminComponent implements OnInit {
 
-  instructors: Array<User> = new Array<User>();
+  instructors: Array<User> = [];
   selectedInstructorId: string;
 
   public displayedColumns = ['date', 'startTime', 'stopTime', 'student', 'contextMenu'];
@@ -112,12 +112,10 @@ export class LessonsAdminComponent implements OnInit {
   deleteLesson(lesson: Lesson) {
     this.api.deleteLesson(lesson).subscribe(deletedLesson => {
 
-      const filteredData = this.dataSource.data.filter(l => {
+      this.dataSource.data = this.dataSource.data.filter(l => {
         return l.instructorId !== deletedLesson.instructorId ||
           l.startTime !== deletedLesson.startTime;
       });
-
-      this.dataSource.data = filteredData;
     });
   }
 }

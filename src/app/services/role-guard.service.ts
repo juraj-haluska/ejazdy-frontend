@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router, CanActivate, ActivatedRouteSnapshot} from '@angular/router';
+import {CanActivate, ActivatedRouteSnapshot} from '@angular/router';
 import {CognitoService} from './cognito.service';
 import {Observable} from 'rxjs/Observable';
 
