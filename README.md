@@ -1,27 +1,53 @@
 # EjazdyFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+Frontent v Angulare ku semestrálnej práci eJazdy. Backend
+a inštrukcie na spustenie backendu sa nachádzajú v repozitáry ejazdy-backend.
 
-## Development server
+## Popis semestrálnej práce
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+eJazdy má slúžiť ako registračný systém jázd pre autoškoly. S systéme sa nachádzajú
+tri druhy používateľov: Administrátor, Inštruktor a Študent. Základný princíp
+sýstému spočíva v tom, že inštruktor môže cez systém vypísať termíny jázd, na ktoré
+sa následne môžu študenti prihlasovať. Odhlásenie študenta z jazdy je umožnené administrátorovi
+a inštruktorom bez obmedzení, študenti sa môžu odhlásiť z jazy len do 24h
+pre jej začatím. Hlavnou úlohou administrátora je správa účtov - pridať/odobrať
+inštruktora alebo študenta. Pridanie nového používateľa je uskutočnené zaslaním emailovej 
+pozvánky s vygenerovaným heslom. Pozvaný užívateľ je následne pri prvom prihlásení vyzvaný 
+na zadanie osobných údajov a nového hesla. Administrátor taktiež môže prihlásiť študentov na
+jazdy, ktoré boli vypísané inštruktorom.
 
-## Code scaffolding
+### Technológie použité v semestrálnej práci:
+- Spring Boot
+- Amazon Cognito
+- Amazon DynamoDb
+- Angular
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Požiadavky na spustenie frontendu
+- Node.js
 
-## Build
+### Inštalácia a spustenie
+Naklonovanie repozitára
+```
+git clone [repo_url]
+cd ejazdy-frontend
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Inštalácia modulov
+```
+npm install
+```
 
-## Running unit tests
+Spustenie webového servera
+```
+ng serve
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Web by mal byť dostupný na localhost:4200
+Ak je tento port obsadený, je možné zvoliť iný port
+pridaním `--port [port]`
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Možné problémy
+Ak ste menil nastavenia pre backend a ten je spustený
+na inom porte ako bolo nastavené, je potrebné upraviť súbor environment.ts
+```
+apiBaseUrl = 'http://localhost:[port]'
