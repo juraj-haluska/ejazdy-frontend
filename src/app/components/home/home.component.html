@@ -1,4 +1,11 @@
-<p>
-  home works!
-</p>
-<button mat-button (click)="button()">Click me!</button>
+<div class="home-container">
+  <p>Welcome</p>
+  <mat-divider></mat-divider>
+  <br>
+  <app-profile
+    *ngIf="profile"
+    [userType]="userType"
+    [profile]="profile"
+    [completedHours]="hours">
+  </app-profile>
+</div>

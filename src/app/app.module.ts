@@ -18,7 +18,8 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule, MatPaginatorModule, MatRadioModule, MatButtonToggleModule
+  MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatMenuModule, MatPaginatorModule, MatRadioModule, MatButtonToggleModule,
+  MatGridListModule
 } from '@angular/material';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
@@ -48,6 +49,7 @@ import { SelectStudentDialogComponent } from './components/dialogs/select-studen
 import { NewLessonDialogComponent } from './components/dialogs/new-lesson-dialog/new-lesson-dialog.component';
 import { LessonsListStudentComponent } from './components/lessons-list-student/lessons-list-student.component';
 import { LessonsAdminComponent } from './components/lessons-admin/lessons-admin.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { LessonsAdminComponent } from './components/lessons-admin/lessons-admin.
     SelectStudentDialogComponent,
     NewLessonDialogComponent,
     LessonsListStudentComponent,
-    LessonsAdminComponent
+    LessonsAdminComponent,
+    ProfileComponent
   ],
   entryComponents: [
     InviteUserDialogComponent,
@@ -99,7 +102,8 @@ import { LessonsAdminComponent } from './components/lessons-admin/lessons-admin.
     MatMomentDateModule,
     MatPaginatorModule,
     MatRadioModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatGridListModule
   ],
   providers: [
     CognitoService,

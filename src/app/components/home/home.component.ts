@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CognitoService} from '../../services/cognito.service';
 import {ApiService} from '../../services/api.service';
+import {User} from '../../model/User';
+import {CognitoService} from '../../services/cognito.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,38 @@ import {ApiService} from '../../services/api.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private cognito: CognitoService,
-              private api: ApiService) {
+  profile: User;
+  userType = '';
+  hours = 0;
+
+  constructor(private api: ApiService, private cognito: CognitoService) {
   }
 
   ngOnInit() {
-  }
 
-  public button() {
-    console.log(this.cognito.getMyUUID());
+    this.cognito.isAuthenticatedAs(['admin']).subscribe(is => {
+      if (is) {
+        this.userType = 'Administrator';
+      }
+    });
+    this.cognito.isAuthenticatedAs(['instructor']).subscribe(is => {
+      if (is) {
+        this.userType = 'Instructor';
+      }
+    });
+    this.cognito.isAuthenticatedAs(['student']).subscribe(is => {
+      if (is) {
+        this.userType = 'Student';
+      }
+    });
+
+    this.api.getMyProfile().subscribe(profile => {
+      if (this.userType === 'Student') {
+        this.api.getHoursByStudent(profile.id).subscribe(hours => {
+          this.hours = hours;
+        });
+      }
+      this.profile = profile;
+    });
   }
 }

@@ -128,4 +128,13 @@ export class ApiService {
     );
   }
 
+  public getMyProfile(): Observable<User> {
+    return this.http.get<User>(`/profile`);
+  }
+
+  public getHoursByStudent(studentId: string): Observable<number> {
+    return this.http.get<number>(
+      `/students/${studentId}/hours`
+    );
+  }
 }

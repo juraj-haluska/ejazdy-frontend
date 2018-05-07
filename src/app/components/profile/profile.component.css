@@ -1,0 +1,22 @@
+.profile-card {
+  max-width: 400px;
+}
+
+.category {
+  background-color: whitesmoke;
+  width: 40%;
+}
+
+.value {
+  background-color: #d8d8d8;
+}
+
+.profile-table {
+  border-spacing: unset;
+  width: 100%;
+  font-size: 16px;
+}
+
+.profile-table td {
+  padding: 16px;
+}
