@@ -15,9 +15,10 @@
                  [type]="hide ? 'password' : 'text'"
                  [formControl]="passwordControl"
                  [(ngModel)]="password" required>
+          <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
-
+        <br>
         <mat-card-actions>
           <button mat-raised-button color="primary" (click)="signIn()" type="submit">Sign in</button>
           <button mat-raised-button color="primary" (click)="forgotPassword()">Forgot password</button>
@@ -28,21 +29,33 @@
     <div *ngIf="state == STATE_ATTRS">
       <h4>Set your profile info</h4>
       <mat-form-field>
-        <input type="text" matInput placeholder="First name" [(ngModel)]="firstName">
+        <input type="text" matInput placeholder="First name" [(ngModel)]="firstName"
+               required [formControl]="firstNameControl">
+        <mat-error *ngIf="firstNameControl.invalid">You must set the first name</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input type="text" matInput placeholder="Last Name" [(ngModel)]="lastName">
+        <input type="text" matInput placeholder="Last Name" [(ngModel)]="lastName"
+               required [formControl]="lastNameControl">
+        <mat-error *ngIf="lastNameControl.invalid">You must set the last name</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input type="text" matInput placeholder="Phone number" [(ngModel)]="phoneNumber">
+        <input type="text" matInput placeholder="Phone number" [(ngModel)]="phoneNumber"
+               required [formControl]="phoneNumberControl">
+        <mat-error *ngIf="phoneNumberControl.invalid">Phone number must starts with +</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input type="password" matInput placeholder="New password" [type]="hide ? 'password' : 'text'"
-               [(ngModel)]="password">
+               [(ngModel)]="password"
+               [formControl]="passwordControl"
+               required>
+        <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
+      <br>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="saveAttrs()">Save</button>
+        <button mat-raised-button color="primary"
+                (click)="saveAttrs()">Save
+        </button>
       </mat-card-actions>
     </div>
 
@@ -72,8 +85,10 @@
                [type]="hide ? 'password' : 'text'"
                [formControl]="passwordControl"
                [(ngModel)]="password" required>
+        <mat-error *ngIf="passwordControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
+      <br>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="confirmVerificationCode()">Confirm</button>
       </mat-card-actions>

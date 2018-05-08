@@ -42,7 +42,29 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
     '',
     [
       Validators.required,
-      Validators.minLength(8)
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$')
+    ]
+  );
+
+  public firstNameControl = new FormControl(
+    '',
+    [
+      Validators.required
+    ]
+  );
+
+  public lastNameControl = new FormControl(
+    '',
+    [
+      Validators.required
+    ]
+  );
+
+  public phoneNumberControl = new FormControl(
+    '',
+    [
+      Validators.required,
+      Validators.pattern('^(\\+)[0-9\\s.\\/-]{6,20}$')
     ]
   );
 
@@ -60,6 +82,13 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
         '';
   }
 
+  getPasswordErrorMessage() {
+    if (this.password && this.password.length < 8) {
+      return 'Password has to be at least 8 characters long';
+    }
+    return 'Password has to contain lowercase, uppercase and numbers.';
+  }
+
   public signIn() {
     if (this.emailControl.valid && this.passwordControl.valid) {
       this.cognito.signInUser(this.email, this.password, this);
@@ -67,14 +96,19 @@ export class LoginComponent implements OnInit, ISignInCallbacks {
   }
 
   public saveAttrs() {
-    const userAttrs: UserAttrs = {
-      password: this.password,
-      given_name: this.firstName,
-      family_name: this.lastName,
-      phone_number: this.phoneNumber
-    };
 
-    this.cognito.signInUserWithAttrs(this.email, userAttrs, this);
+    if (this.firstNameControl.valid && this.lastNameControl.valid &&
+      this.phoneNumberControl.valid && this.passwordControl.valid) {
+
+      const userAttrs: UserAttrs = {
+        password: this.password,
+        given_name: this.firstName,
+        family_name: this.lastName,
+        phone_number: this.phoneNumber
+      };
+
+      this.cognito.signInUserWithAttrs(this.email, userAttrs, this);
+    }
   }
 
   public forgotPassword() {
