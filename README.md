@@ -22,8 +22,21 @@ jazdy, ktoré boli vypísané inštruktorom.
 - Amazon DynamoDB
 - Angular
 
-## Inštalácia a spustenie
+## Demo
+Aplikáciu je možné odkúšať tu: http://ejazdy.sk.  
+Na prihlásenie do aplikácie použite účty vypísané v tabuľke nižšie.
 
+## Účty
+Kôli možnosti odskúšania aplikácie boli vytvorené účty:
+
+| typ        | email (username)        | heslo      |
+|------------|-------------------------|------------|
+| admin      | xolani.joely@itis0k.org | aaaaAAAA1! |
+| instructor | uwg48830@ckoie.com      | aaaaAAAA1! |
+| instructor | mrz41416@zixoa.com      | aaaaAAAA1! |
+| student    | caly.amisa@itis0k.org   | aaaaAAAA1! |
+
+## Inštalácia a spustenie
 Požiadavky na spustenie frontendu
 - Node.js
 
@@ -37,24 +50,16 @@ cd ejazdy-frontend
 ```
 npm install
 ```
-
-3. Spustenie webového servera
+3. Inštalácia angular cli
+```
+npm install -g @angular/cli
+```
+4. Spustenie webového servera
 ```
 ng serve
 ```
 Web by mal byť dostupný na **localhost:4200**. Ak je tento port obsadený, je možné zvoliť iný port
 pridaním `--port [port]`
-
-## Účty
-
-Kôli možnosti odskúšania aplikácie boli vytvorené účty:
-
-| typ        | email (username)        | heslo      |
-|------------|-------------------------|------------|
-| admin      | xolani.joely@itis0k.org | aaaaAAAA1! |
-| instructor | uwg48830@ckoie.com      | aaaaAAAA1! |
-| instructor | mrz41416@zixoa.com      | aaaaAAAA1! |
-| student    | caly.amisa@itis0k.org   | aaaaAAAA1! |
 
 ## Možné problémy
 Ak ste menil nastavenia pre backend a ten je spustený
