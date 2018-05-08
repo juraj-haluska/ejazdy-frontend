@@ -1,12 +1,11 @@
 # EjazdyFrontend
 
 Frontent v Angulare ku semestrálnej práci eJazdy. Backend
-a inštrukcie na spustenie backendu sa nachádzajú v repozitáry ejazdy-backend.
-Autor - Juraj Haluška (https://github.com/spacive)
+a inštrukcie na spustenie backendu sa nachádzajú v repozitári ejazdy-backend.
 
 ## Popis semestrálnej práce
 
-eJazdy má slúžiť ako registračný systém jázd pre autoškoly. S systéme sa nachádzajú
+eJazdy má slúžiť ako registračný systém jázd pre autoškoly. V systéme sa nachádzajú
 tri druhy používateľov: Administrátor, Inštruktor a Študent. Základný princíp
 sýstému spočíva v tom, že inštruktor môže cez systém vypísať termíny jázd, na ktoré
 sa následne môžu študenti prihlasovať. Odhlásenie študenta z jazdy je umožnené administrátorovi
@@ -20,36 +19,49 @@ jazdy, ktoré boli vypísané inštruktorom.
 ### Technológie použité v semestrálnej práci:
 - Spring Boot
 - Amazon Cognito
-- Amazon DynamoDb
+- Amazon DynamoDB
 - Angular
 
-### Inštalácia a spustenie
+## Inštalácia a spustenie
 
 Požiadavky na spustenie frontendu
 - Node.js
 
-Naklonovanie repozitára
+1. Naklonovanie repozitára
 ```
 git clone [repo_url]
 cd ejazdy-frontend
 ```
 
-Inštalácia modulov
+2. Inštalácia modulov
 ```
 npm install
 ```
 
-Spustenie webového servera
+3. Spustenie webového servera
 ```
 ng serve
 ```
-
-Web by mal byť dostupný na localhost:4200.
-Ak je tento port obsadený, je možné zvoliť iný port
+Web by mal byť dostupný na **localhost:4200**. Ak je tento port obsadený, je možné zvoliť iný port
 pridaním `--port [port]`
+
+## Účty
+
+Kôli možnosti odskúšania aplikácie boli vytvorené účty:
+
+| typ        | email (username)        | heslo      |
+|------------|-------------------------|------------|
+| admin      | xolani.joely@itis0k.org | aaaaAAAA1! |
+| instructor | uwg48830@ckoie.com      | aaaaAAAA1! |
+| instructor | mrz41416@zixoa.com      | aaaaAAAA1! |
+| student    | caly.amisa@itis0k.org   | aaaaAAAA1! |
 
 ## Možné problémy
 Ak ste menil nastavenia pre backend a ten je spustený
 na inom porte ako bolo nastavené, je potrebné upraviť súbor environment.ts
 ```
 apiBaseUrl = 'http://localhost:[port]'
+```
+
+## Autor
+Juraj Haluška (https://github.com/spacive)
