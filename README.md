@@ -1,7 +1,7 @@
 # EjazdyFrontend
 
 Frontent v Angulare ku semestrálnej práci eJazdy. Backend
-a inštrukcie na spustenie backendu sa nachádzajú v repozitári ejazdy-backend.
+a inštrukcie na spustenie backendu sa nachádzajú v repozitári [ejazdy-backend](https://github.com/spacive/ejazdy-backend).
 
 ## Popis semestrálnej práce
 
@@ -22,9 +22,13 @@ jazdy, ktoré boli vypísané inštruktorom.
 - Amazon DynamoDB
 - Angular
 
-## Demo
+### Demo
 Aplikáciu je možné odkúšať tu: http://ejazdy.sk.  
 Na prihlásenie do aplikácie použite účty vypísané v tabuľke nižšie.
+
+### Dokumentácia
+Dokumentácia sa nachádza v repozitári [ejazdy-backend](https://github.com/spacive/ejazdy-backend) v priečinku
+[docs](https://github.com/spacive/ejazdy-backend/tree/master/docs). 
 
 ## Účty
 Kôli možnosti odskúšania aplikácie boli vytvorené účty:
