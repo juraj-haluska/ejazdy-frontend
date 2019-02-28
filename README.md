@@ -1,76 +1,61 @@
 # EjazdyFrontend
 
-Frontent v Angulare ku semestrálnej práci eJazdy. Backend
-a inštrukcie na spustenie backendu sa nachádzajú v repozitári [ejazdy-backend](https://github.com/spacive/ejazdy-backend).
+Frontend in Angular for semestral thesis eJazdy. Backend and 
+instructions how to run it can be found in this repo [ejazdy-backend](https://github.com/spacive/ejazdy-backend).
 
-## Popis semestrálnej práce
+## Description of the semestral thesis
 
-eJazdy má slúžiť ako registračný systém jázd pre autoškoly. V systéme sa nachádzajú
-tri druhy používateľov: Administrátor, Inštruktor a Študent. Základný princíp
-sýstému spočíva v tom, že inštruktor môže cez systém vypísať termíny jázd, na ktoré
-sa následne môžu študenti prihlasovať. Odhlásenie študenta z jazdy je umožnené administrátorovi
-a inštruktorom bez obmedzení, študenti sa môžu odhlásiť z jazy len do 24h
-pre jej začatím. Hlavnou úlohou administrátora je správa účtov - pridať/odobrať
-inštruktora alebo študenta. Pridanie nového používateľa je uskutočnené zaslaním emailovej 
-pozvánky s vygenerovaným heslom. Pozvaný užívateľ je následne pri prvom prihlásení vyzvaný 
-na zadanie osobných údajov a nového hesla. Administrátor taktiež môže prihlásiť študentov na
-jazdy, ktoré boli vypísané inštruktorom.
+eJazdy is a registration system of rides for car driving school. In the system, there are three
+roles of users: Administrator, Instructor and Student. A basic principle of the system lies in 
+the ability of instructor to create and publish dates of rides, which students are allowed to register on.
+Removal of the registered student to the ride is allowed to Administrators and Instructors without restrictions.
+Students are allowed to cancel their registration no later than 24 hours before the lesson starts. The most important
+role of the Administrator is user management - create/delete student or instructor from system. Creation of the new user
+is accomplished by email invitation which is sent with auto-generated password. Invited user is required to fill the personal 
+data and change the password when it is logged in the first time. Administrator is also allowed to register existing
+students to lessons, which were published by Instructor.
 
-### Technológie použité v semestrálnej práci:
+### Utilised technologies
 - Spring Boot
 - Amazon Cognito
-- Amazon DynamoDB
-- Angular
+- Amazon DynamoDBs
+- Angular5
 
-### Demo
-Aplikáciu je možné odkúšať tu: http://ejazdy.sk.  
-Na prihlásenie do aplikácie použite účty vypísané v tabuľke nižšie.
-
-### Dokumentácia
-Dokumentácia sa nachádza v repozitári [ejazdy-backend](https://github.com/spacive/ejazdy-backend) v priečinku
+### Docs
+Documentation in can be found here [ejazdy-backend](https://github.com/spacive/ejazdy-backend) in a directory
 [docs](https://github.com/spacive/ejazdy-backend/tree/master/docs). 
 
-## Účty
-Kôli možnosti odskúšania aplikácie boli vytvorené účty:
-
-| typ        | email (username)        | heslo      |
-|------------|-------------------------|------------|
-| admin      | xolani.joely@itis0k.org | aaaaAAAA1! |
-| instructor | uwg48830@ckoie.com      | aaaaAAAA1! |
-| instructor | mrz41416@zixoa.com      | aaaaAAAA1! |
-| student    | caly.amisa@itis0k.org   | aaaaAAAA1! |
-
-## Inštalácia a spustenie
-Požiadavky na spustenie frontendu
+## Installation and execution
+Requirements to execute a frontend
 - Node.js
 
-1. Naklonovanie repozitára
+1. Clone this repo
 ```
 git clone [repo_url]
 cd ejazdy-frontend
 ```
 
-2. Inštalácia modulov
+2. Install node modules
 ```
 npm install
 ```
-3. Inštalácia angular cli
+3. Install angular cli
 ```
 npm install -g @angular/cli
 ```
-4. Spustenie webového servera
+4. Execute web server
 ```
 ng serve
 ```
-Web by mal byť dostupný na **localhost:4200**. Ak je tento port obsadený, je možné zvoliť iný port
-pridaním `--port [port]`
+Web should be accessible at **localhost:4200**. If this port is already occupied,
+you can select other one with `--port [port]`
 
-## Možné problémy
-Ak ste menil nastavenia pre backend a ten je spustený
-na inom porte ako bolo nastavené, je potrebné upraviť súbor environment.ts
+## Possible issues
+If you changed setting for backend and it's running on other port,
+it is neccessary to edit file enviroment.ts
 ```
 apiBaseUrl = 'http://localhost:[port]'
 ```
 
-## Autor
+## Author
 Juraj Haluška (https://github.com/spacive)
